@@ -243,9 +243,9 @@
 
   async function geoSetup() {
     try {
-      const res = await fetch("https://ipapi.co/json/");
+      const res = await fetch("http://ip-api.com/json/?fields=countryCode");
       const data = await res.json();
-      const country = (data.country_code || "").toUpperCase();
+      const country = (data.countryCode || "").toUpperCase();
       const link = LINKS[country] || LINKS.DEFAULT;
       document.querySelectorAll("a[href='#']").forEach(el => el.href = link);
       if (country === 'GB') {
