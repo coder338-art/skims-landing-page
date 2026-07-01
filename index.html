@@ -1,151 +1,519 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>LURKE — Instagram Unfollowers Tracker for iPhone</title>
-<meta name="description" content="LURKE is the fastest, cleanest Instagram unfollowers tracker for iPhone. See who unfollowed you, find ghost followers, and grow smarter." />
-<meta property="og:title" content="LURKE — Instagram Unfollowers Tracker for iPhone" />
-<meta property="og:description" content="See exactly who unfollowed you on Instagram — instantly. Available on the App Store." />
-<meta property="og:type" content="website" />
-<meta name="twitter:card" content="summary_large_image" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
-        colors: {
-          background: '#0a0a0a',
-          foreground: '#fafafa',
-          card: '#141414',
-          border: '#262626',
-          muted: '#a1a1aa',
-          primary: '#ff4d8f',
-        },
-      },
-    },
-  };
-</script>
-<style>
-  html, body { background:#0a0a0a; color:#fafafa; font-family: Inter, system-ui, sans-serif; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LURKE - Instagram Unfollowers Tracker for iPhone</title>
+  <meta name="description" content="LURKE is the fastest, cleanest Instagram unfollowers tracker for iPhone. See who unfollowed you, find ghost followers, and grow smarter." />
+  <meta property="og:title" content="LURKE - Instagram Unfollowers Tracker for iPhone" />
+  <meta property="og:description" content="See exactly who unfollowed you on Instagram. Available on the App Store." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0A0A0C;
+      --surface: #111115;
+      --text: #F0EEE9;
+      --muted: #B89AA8;
+      --accent: #FF3D8B;
+      --accent-glow: rgba(255, 61, 139, 0.18);
+      --danger: #FF85B3;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      background: linear-gradient(to bottom, rgba(10,10,12,0.97), transparent);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+    .nav-cta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid rgba(255,61,139,0.35);
+      padding: 8px 18px;
+      border-radius: 8px;
+      transition: background 0.2s, border-color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .nav-cta:active { background: var(--accent-glow); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 64px;
+      overflow: hidden;
+    }
+
+    .ghost-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .ghost-name {
+      position: absolute;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(240,238,233,0.12);
+      white-space: nowrap;
+      animation: ghostFade 6s ease-in-out infinite;
+    }
+    @keyframes ghostFade {
+      0%   { opacity: 0; transform: translateY(0px); }
+      20%  { opacity: 1; }
+      70%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-14px); }
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 35%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(600px, 100vw);
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(255,61,139,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(44px, 12vw, 96px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+
+    .hero-tagline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(18px, 4vw, 26px);
+      font-weight: 400;
+      color: #C8B0BC;
+      max-width: 420px;
+      line-height: 1.5;
+      margin-bottom: 40px;
+      letter-spacing: -0.01em;
+    }
+
+    .appstore-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--text);
+      color: var(--bg);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: transform 0.18s, box-shadow 0.18s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .appstore-btn:active { transform: scale(0.97); }
+    .appstore-btn svg { flex-shrink: 0; }
+    .appstore-btn-text { text-align: left; line-height: 1.2; }
+    .appstore-btn-text small { display: block; font-size: 10px; font-weight: 400; opacity: 0.55; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 1px; }
+    .appstore-btn-text strong { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+
+    .hero-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+
+    /* COUNTER STRIP */
+    .counter-strip {
+      background: var(--surface);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 20px 16px;
+      display: flex;
+      justify-content: center;
+    }
+    .counter-item {
+      text-align: center;
+      flex: 1;
+      padding: 0 8px;
+      position: relative;
+    }
+    .counter-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 10%; bottom: 10%;
+      width: 1px;
+      background: rgba(255,255,255,0.07);
+    }
+    .counter-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(18px, 5vw, 26px);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .counter-label {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 3px;
+      line-height: 1.3;
+    }
+
+    /* FEATURES */
+    .features-section {
+      padding: 80px 24px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .features-section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .features-section .section-sub {
+      text-align: center;
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 48px;
+    }
+    .features-grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 28px 24px;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(255,61,139,0.4); }
+    .feature-icon {
+      font-size: 22px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .feature-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 64px 24px 100px;
+      position: relative;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, transparent, var(--muted));
+    }
+    .cta-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .cta-section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(28px, 8vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .cta-section h2 em { font-style: normal; color: var(--danger); }
+    .cta-section .cta-desc {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 36px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-pro-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 24px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 90px 20px 56px; }
+      h1 { font-size: clamp(42px, 14vw, 64px); margin-bottom: 20px; }
+      .hero-sub { font-size: 15px; margin-bottom: 36px; }
+      .appstore-btn { padding: 14px 24px; width: 100%; max-width: 280px; justify-content: center; }
+      .counter-strip { padding: 18px 12px; }
+      .counter-value { font-size: 20px; }
+      .counter-label { font-size: 9px; letter-spacing: 0.03em; }
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .features-section { padding: 56px 16px; }
+      .cta-section { padding: 56px 20px 80px; }
+      footer { padding: 24px 20px; justify-content: center; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+
+    @media (min-width: 601px) and (max-width: 900px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ghost-name { animation: none; opacity: 0; }
+      .appstore-btn:active { transform: none; }
+    }
+  </style>
 </head>
-<body class="min-h-screen">
-  <!-- Hero -->
-  <section class="relative overflow-hidden px-6 pt-16 pb-24 md:pt-32 md:pb-40">
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-primary/10 blur-[120px]"></div>
-    </div>
-    <div class="relative mx-auto max-w-6xl">
-      <div class="grid items-center gap-12 md:grid-cols-2">
-        <div class="space-y-8 text-center md:text-left">
-          <div class="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-            Now on the App Store
-          </div>
-          <h1 class="text-5xl font-extrabold tracking-tight md:text-7xl">LURKE</h1>
-          <p class="text-xl text-zinc-400 md:text-2xl max-w-lg mx-auto md:mx-0">
-            See exactly who unfollowed you on Instagram — instantly.
-          </p>
-          <p class="text-base text-zinc-500 max-w-md mx-auto md:mx-0">
-            The fastest, cleanest unfollower tracker built for creators, influencers, and anyone serious about their Instagram growth.
-          </p>
-          <div class="flex flex-col items-center gap-4 sm:flex-row md:justify-start">
-            <a href="https://apps.apple.com/ca/app/lurke-unfollowers-tracker/id6759174957" target="_blank" rel="noopener noreferrer"
-               class="inline-flex items-center gap-2 h-14 px-8 text-base rounded-xl bg-primary hover:bg-primary/90 text-white font-semibold transition-colors">
-              <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.21-1.98 1.08-3.11-1.05.05-2.31.7-3.06 1.53-.68.76-1.27 1.98-1.11 3.11 1.18.09 2.38-.6 3.09-1.53z"/>
-              </svg>
-              Download on the App Store
-            </a>
-            <span class="text-sm text-zinc-500">iPhone &amp; iPad · United States</span>
-          </div>
-        </div>
-        <div class="flex justify-center">
-          <div class="relative w-64 h-[520px] rounded-[3rem] border-[10px] border-zinc-800 bg-gradient-to-b from-pink-500/30 to-black shadow-2xl">
-            <div class="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full"></div>
-            <div class="absolute inset-6 top-12 rounded-2xl bg-black/40 flex flex-col items-center justify-center gap-3 p-6 text-center">
-              <div class="text-primary text-4xl font-extrabold">LURKE</div>
-              <div class="text-zinc-400 text-sm">Unfollowers Tracker</div>
-              <div class="mt-6 space-y-2 w-full">
-                <div class="h-10 rounded-lg bg-white/5"></div>
-                <div class="h-10 rounded-lg bg-white/5"></div>
-                <div class="h-10 rounded-lg bg-primary/20 border border-primary/40"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<body>
 
-  <!-- Features -->
-  <section class="px-6 py-24 border-t border-zinc-800">
-    <div class="mx-auto max-w-6xl">
-      <div class="mb-16 text-center">
-        <h2 class="text-3xl font-bold tracking-tight md:text-4xl">Everything you need to know</h2>
-        <p class="mt-4 text-lg text-zinc-400">Stop guessing. Start knowing.</p>
-      </div>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-primary/40 transition-colors">
-          <h3 class="text-lg font-semibold">Unfollower Tracking</h3>
-          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">Instantly see who stopped following you on Instagram — no delays, no guesswork.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-primary/40 transition-colors">
-          <h3 class="text-lg font-semibold">New Follower Alerts</h3>
-          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">Know the moment you gain a new fan or follower with real-time notifications.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-primary/40 transition-colors">
-          <h3 class="text-lg font-semibold">Not Following Back</h3>
-          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">Discover who you follow that doesn't follow you back. Clean up your list.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-primary/40 transition-colors">
-          <h3 class="text-lg font-semibold">Ghost Followers</h3>
-          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">Identify inactive accounts dragging down your engagement rate.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-primary/40 transition-colors">
-          <h3 class="text-lg font-semibold">Growth Analytics</h3>
-          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">Track your Instagram growth trends over time with clear, visual insights.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-primary/40 transition-colors">
-          <h3 class="text-lg font-semibold">No Ads, No Clutter</h3>
-          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">Just a premium, minimal dashboard built for speed and clarity.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<nav>
+  <span class="nav-logo">LURKE</span>
+  <a href="https://apps.apple.com/ca/app/lurke-unfollowers-tracker/id6759174957" class="nav-cta" target="_blank" rel="noopener">Download</a>
+</nav>
 
-  <!-- CTA -->
-  <section class="px-6 py-24">
-    <div class="mx-auto max-w-3xl text-center">
-      <h2 class="text-3xl font-bold tracking-tight md:text-4xl">Ready to take control?</h2>
-      <p class="mt-4 text-lg text-zinc-400">Join creators and influencers who use LURKE to stay on top of their Instagram growth.</p>
-      <div class="mt-10">
-        <a href="https://apps.apple.com/ca/app/lurke-unfollowers-tracker/id6759174957" target="_blank" rel="noopener noreferrer"
-           class="inline-flex items-center gap-2 h-14 px-8 text-base rounded-xl bg-primary hover:bg-primary/90 text-white font-semibold transition-colors">
-          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.21-1.98 1.08-3.11-1.05.05-2.31.7-3.06 1.53-.68.76-1.27 1.98-1.11 3.11 1.18.09 2.38-.6 3.09-1.53z"/>
-          </svg>
-          Get LURKE on the App Store
-        </a>
-      </div>
-      <p class="mt-6 text-sm text-zinc-500">LURKE Pro subscriptions available for unlimited tracking.</p>
-    </div>
-  </section>
+<div class="ghost-layer" id="ghostLayer"></div>
 
-  <!-- Footer -->
-  <footer class="px-6 py-12 border-t border-zinc-800">
-    <div class="mx-auto max-w-6xl flex flex-col items-center justify-between gap-4 sm:flex-row">
-      <p class="text-sm text-zinc-500">&copy; <span id="year"></span> Softgenics LTD. All rights reserved.</p>
-      <div class="flex items-center gap-6 text-sm text-zinc-500">
-        <a href="https://apps.apple.com/ca/app/lurke-unfollowers-tracker/id6759174957" class="hover:text-white transition-colors">App Store</a>
-        <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" class="hover:text-white transition-colors">Terms</a>
-      </div>
+<section class="hero">
+  <p class="hero-eyebrow">For iPhone · United States</p>
+  <h1>LURKE.</h1>
+  <p class="hero-tagline">The app that tells you what they won't.</p>
+  <a href="https://apps.apple.com/ca/app/lurke-unfollowers-tracker/id6759174957" class="appstore-btn" target="_blank" rel="noopener" aria-label="Download LURKE on the App Store">
+    <svg width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.217 14.86c-.03-3.46 2.828-5.13 2.957-5.21-1.613-2.357-4.12-2.68-5.013-2.714-2.133-.217-4.17 1.26-5.25 1.26-1.08 0-2.74-1.232-4.506-1.2-2.32.034-4.464 1.35-5.66 3.416-2.41 4.17-.618 10.358 1.736 13.746 1.15 1.658 2.525 3.52 4.327 3.452 1.74-.07 2.394-1.12 4.498-1.12 2.104 0 2.7 1.12 4.54 1.086 1.872-.03 3.055-1.69 4.194-3.355 1.326-1.922 1.873-3.78 1.904-3.878-.042-.018-3.646-1.4-3.727-5.483z" fill="#0A0A0C"/>
+      <path d="M16.79 4.56C17.74 3.4 18.38 1.8 18.2.166c-1.39.058-3.075.927-4.066 2.088-.893 1.035-1.677 2.693-1.464 4.282 1.548.12 3.13-.784 4.12-1.976z" fill="#0A0A0C"/>
+    </svg>
+    <span class="appstore-btn-text">
+      <small>Download on the</small>
+      <strong>App Store</strong>
+    </span>
+  </a>
+  <p class="hero-note">Free to install · iPhone &amp; iPad · United States</p>
+</section>
+
+<div class="counter-strip">
+  <div class="counter-item">
+    <div class="counter-value" id="cnt1">0</div>
+    <div class="counter-label">Unfollowers caught</div>
+  </div>
+  <div class="counter-item">
+    <div class="counter-value" id="cnt2">0</div>
+    <div class="counter-label">Non-followers exposed</div>
+  </div>
+  <div class="counter-item">
+    <div class="counter-value" id="cnt3">0</div>
+    <div class="counter-label">Users lurking</div>
+  </div>
+</div>
+
+<section class="features-section">
+  <h2>You deserve to know the truth</h2>
+  <p class="section-sub">Stop refreshing. Stop overthinking. Just know.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">💔</span>
+      <h3>Did they unfollow you?</h3>
+      <p>Stop checking their profile every hour. LURKE tells you the second someone unfollows you so you never have to wonder again.</p>
     </div>
-  </footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+    <div class="feature-card">
+      <span class="feature-icon">👀</span>
+      <h3>Who are they still following?</h3>
+      <p>See exactly who someone follows and who they recently added. Your instincts brought you here for a reason.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🙄</span>
+      <h3>They follow everyone but you</h3>
+      <p>Find out who you follow that never bothered to follow you back. Some people are not worth your time.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">👻</span>
+      <h3>The ones who went quiet</h3>
+      <p>Spot accounts that stopped engaging with you completely. Sometimes silence says everything.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔕</span>
+      <h3>They will never know you checked</h3>
+      <p>LURKE works silently in the background. No notifications sent to them, no trace left behind. Just answers.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">✅</span>
+      <h3>Peace of mind, finally</h3>
+      <p>The not knowing is the worst part. LURKE gives you clarity so you can stop obsessing and start deciding.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <p class="cta-label">Start now</p>
+  <h2>Your gut has been<br/>right <em>all along.</em></h2>
+  <p class="cta-desc">You already have a feeling. Now get the answer.</p>
+  <a href="https://apps.apple.com/ca/app/lurke-unfollowers-tracker/id6759174957" class="appstore-btn" target="_blank" rel="noopener" aria-label="Download LURKE on the App Store">
+    <svg width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.217 14.86c-.03-3.46 2.828-5.13 2.957-5.21-1.613-2.357-4.12-2.68-5.013-2.714-2.133-.217-4.17 1.26-5.25 1.26-1.08 0-2.74-1.232-4.506-1.2-2.32.034-4.464 1.35-5.66 3.416-2.41 4.17-.618 10.358 1.736 13.746 1.15 1.658 2.525 3.52 4.327 3.452 1.74-.07 2.394-1.12 4.498-1.12 2.104 0 2.7 1.12 4.54 1.086 1.872-.03 3.055-1.69 4.194-3.355 1.326-1.922 1.873-3.78 1.904-3.878-.042-.018-3.646-1.4-3.727-5.483z" fill="#0A0A0C"/>
+      <path d="M16.79 4.56C17.74 3.4 18.38 1.8 18.2.166c-1.39.058-3.075.927-4.066 2.088-.893 1.035-1.677 2.693-1.464 4.282 1.548.12 3.13-.784 4.12-1.976z" fill="#0A0A0C"/>
+    </svg>
+    <span class="appstore-btn-text">
+      <small>Download on the</small>
+      <strong>App Store</strong>
+    </span>
+  </a>
+  <p class="cta-pro-note">LURKE Pro subscriptions available for unlimited tracking.</p>
+</section>
+
+<footer>
+  <span class="footer-copy">Independent affiliate. LURKE is a product of Softgenics LTD.</span>
+  <div class="footer-links">
+    <a href="https://apps.apple.com/ca/app/lurke-unfollowers-tracker/id6759174957" target="_blank" rel="noopener">App Store</a>
+    <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Terms</a>
+  </div>
+</footer>
+
+<script>
+
+  const names = [
+    '@alex.m','@jay_k','@danielvx','@user9281','@followback99','@ghosted_lol',
+    '@notfollowing','@silent.watcher','@__lurker','@fadeout','@anon.98','@bye.wav',
+    '@justviewing','@noreply_','@invisible.co','@watchr','@unfollow.me','@xx.ghost',
+    '@void.user','@shadow__','@404.found','@nocap.real','@deepscroll','@quietmode'
+  ];
+
+  const layer = document.getElementById('ghostLayer');
+  const count = window.innerWidth < 600 ? 14 : 28;
+
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'ghost-name';
+    el.textContent = names[i % names.length];
+    el.style.left = Math.random() * 85 + '%';
+    el.style.top = (Math.random() * 80 + 5) + '%';
+    el.style.animationDelay = (Math.random() * 8) + 's';
+    el.style.animationDuration = (5 + Math.random() * 5) + 's';
+    layer.appendChild(el);
+  }
+
+  function animateCount(el, target, suffix) {
+    let start = 0;
+    const step = target / 60;
+    const timer = setInterval(() => {
+      start = Math.min(start + step, target);
+      el.textContent = Math.floor(start).toLocaleString() + suffix;
+      if (start >= target) clearInterval(timer);
+    }, 24);
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCount(document.getElementById('cnt1'), 48200, '+');
+        animateCount(document.getElementById('cnt2'), 12700, '+');
+        animateCount(document.getElementById('cnt3'), 3100, '+');
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(document.querySelector('.counter-strip'));
+</script>
 </body>
 </html>
