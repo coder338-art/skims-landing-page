@@ -1,1 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LURKE — Instagram Unfollowers Tracker for iPhone</title>
+<meta name="description" content="LURKE is the fastest, cleanest Instagram unfollowers tracker for iPhone. See who unfollowed you, find ghost followers, and grow smarter." />
+<meta property="og:title" content="LURKE — Instagram Unfollowers Tracker for iPhone" />
+<meta property="og:description" content="See exactly who unfollowed you on Instagram — instantly. Available on the App Store." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        colors: {
+          background: '#0a0a0a',
+          foreground: '#fafafa',
+          card: '#141414',
+          border: '#262626',
+          muted: '#a1a1aa',
+          primary: '#ff4d8f',
+        },
+      },
+    },
+  };
+</script>
+<style>
+  html, body { background:#0a0a0a; color:#fafafa; font-family: Inter, system-ui, sans-serif; }
+</style>
+</head>
+<body class="min-h-screen">
+  <!-- Hero -->
+  <section class="relative overflow-hidden px-6 pt-16 pb-24 md:pt-32 md:pb-40">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-primary/10 blur-[120px]"></div>
+    </div>
+    <div class="relative mx-auto max-w-6xl">
+      <div class="grid items-center gap-12 md:grid-cols-2">
+        <div class="space-y-8 text-center md:text-left">
+          <div class="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+            Now on the App Store
+          </div>
+          <h1 class="text-5xl font-extrabold tracking-tight md:text-7xl">LURKE</h1>
+          <p class="text-xl text-zinc-400 md:text-2xl max-w-lg mx-auto md:mx-0">
+            See exactly who unfollowed you on Instagram — instantly.
+          </p>
+          <p class="text-base text-zinc-500 max-w-md mx-auto md:mx-0">
+            The fastest, cleanest unfollower tracker built for creators, influencers, and anyone serious about their Instagram growth.
+          </p>
+          <div class="flex flex-col items-center gap-4 sm:flex-row md:justify-start">
+            <a href="https://apps.apple.com/ca/app/lurke-unfollowers-tracker/id6759174957" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 h-14 px-8 text-base rounded-xl bg-primary hover:bg-primary/90 text-white font-semibold transition-colors">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.21-1.98 1.08-3.11-1.05.05-2.31.7-3.06 1.53-.68.76-1.27 1.98-1.11 3.11 1.18.09 2.38-.6 3.09-1.53z"/>
+              </svg>
+              Download on the App Store
+            </a>
+            <span class="text-sm text-zinc-500">iPhone &amp; iPad · United States</span>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <div class="relative w-64 h-[520px] rounded-[3rem] border-[10px] border-zinc-800 bg-gradient-to-b from-pink-500/30 to-black shadow-2xl">
+            <div class="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full"></div>
+            <div class="absolute inset-6 top-12 rounded-2xl bg-black/40 flex flex-col items-center justify-center gap-3 p-6 text-center">
+              <div class="text-primary text-4xl font-extrabold">LURKE</div>
+              <div class="text-zinc-400 text-sm">Unfollowers Tracker</div>
+              <div class="mt-6 space-y-2 w-full">
+                <div class="h-10 rounded-lg bg-white/5"></div>
+                <div class="h-10 rounded-lg bg-white/5"></div>
+                <div class="h-10 rounded-lg bg-primary/20 border border-primary/40"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Features -->
+  <section class="px-6 py-24 border-t border-zinc-800">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-16 text-center">
+        <h2 class="text-3xl font-bold tracking-tight md:text-4xl">Everything you need to know</h2>
+        <p class="mt-4 text-lg text-zinc-400">Stop guessing. Start knowing.</p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-primary/40 transition-colors">
+          <h3 class="text-lg font-semibold">Unfollower Tracking</h3>
+          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">Instantly see who stopped following you on Instagram — no delays, no guesswork.</p>
+        </div>
+        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-primary/40 transition-colors">
+          <h3 class="text-lg font-semibold">New Follower Alerts</h3>
+          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">Know the moment you gain a new fan or follower with real-time notifications.</p>
+        </div>
+        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-primary/40 transition-colors">
+          <h3 class="text-lg font-semibold">Not Following Back</h3>
+          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">Discover who you follow that doesn't follow you back. Clean up your list.</p>
+        </div>
+        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-primary/40 transition-colors">
+          <h3 class="text-lg font-semibold">Ghost Followers</h3>
+          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">Identify inactive accounts dragging down your engagement rate.</p>
+        </div>
+        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-primary/40 transition-colors">
+          <h3 class="text-lg font-semibold">Growth Analytics</h3>
+          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">Track your Instagram growth trends over time with clear, visual insights.</p>
+        </div>
+        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-primary/40 transition-colors">
+          <h3 class="text-lg font-semibold">No Ads, No Clutter</h3>
+          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">Just a premium, minimal dashboard built for speed and clarity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="px-6 py-24">
+    <div class="mx-auto max-w-3xl text-center">
+      <h2 class="text-3xl font-bold tracking-tight md:text-4xl">Ready to take control?</h2>
+      <p class="mt-4 text-lg text-zinc-400">Join creators and influencers who use LURKE to stay on top of their Instagram growth.</p>
+      <div class="mt-10">
+        <a href="https://apps.apple.com/ca/app/lurke-unfollowers-tracker/id6759174957" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 h-14 px-8 text-base rounded-xl bg-primary hover:bg-primary/90 text-white font-semibold transition-colors">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.21-1.98 1.08-3.11-1.05.05-2.31.7-3.06 1.53-.68.76-1.27 1.98-1.11 3.11 1.18.09 2.38-.6 3.09-1.53z"/>
+          </svg>
+          Get LURKE on the App Store
+        </a>
+      </div>
+      <p class="mt-6 text-sm text-zinc-500">LURKE Pro subscriptions available for unlimited tracking.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="px-6 py-12 border-t border-zinc-800">
+    <div class="mx-auto max-w-6xl flex flex-col items-center justify-between gap-4 sm:flex-row">
+      <p class="text-sm text-zinc-500">&copy; <span id="year"></span> Softgenics LTD. All rights reserved.</p>
+      <div class="flex items-center gap-6 text-sm text-zinc-500">
+        <a href="https://apps.apple.com/ca/app/lurke-unfollowers-tracker/id6759174957" class="hover:text-white transition-colors">App Store</a>
+        <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" class="hover:text-white transition-colors">Terms</a>
+      </div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
