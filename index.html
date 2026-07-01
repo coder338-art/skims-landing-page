@@ -4,26 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LURKE: See Who Unfollowed You on Instagram</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👁️</text></svg>">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Inter:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
   :root {
     --bg: #ffffff;
     --bg2: #fff5f8;
     --card: #ffffff;
     --border: #fce4ec;
-    --accent: #ff6b9d;
+    --accent: #f472b6;
     --accent-dim: rgba(255,175,204,0.2);
     --accent-glow: rgba(255,175,204,0.5);
-    --text: #111111;
-    --muted: #888888;
+    --text: #1a1a1a;
+    --muted: #666666;
     --green: #16a34a;
     --red: #ff6b9d;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+  body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
 
   /* NAV */
   nav {
@@ -53,34 +54,34 @@
   .search-wrap { position: relative; z-index: 1; width: 100%; max-width: 520px; }
   .search-box { display: flex; align-items: center; background: #fff; border-radius: 100px; padding: 6px 6px 6px 20px; box-shadow: 0 0 50px rgba(155,111,255,0.3); }
   .search-at { color: #aaa; font-size: 20px; font-weight: 600; margin-right: 4px; flex-shrink: 0; }
-  .search-input { flex: 1; border: none; outline: none; font-size: 16px; font-family: 'Inter', sans-serif; font-weight: 500; color: #111; background: transparent; min-width: 0; }
+  .search-input { flex: 1; border: none; outline: none; font-size: 16px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; color: #111; background: transparent; min-width: 0; }
   .search-input::placeholder { color: #bbb; }
-  .search-btn { background: #111111; color: #fff; border: none; border-radius: 100px; padding: 12px 28px; font-size: 15px; font-weight: 700; cursor: pointer; flex-shrink: 0; transition: opacity 0.2s; font-family: 'Inter', sans-serif; }
+  .search-btn { background: #111111; color: #fff; border: none; border-radius: 100px; padding: 12px 28px; font-size: 15px; font-weight: 700; cursor: pointer; flex-shrink: 0; transition: opacity 0.2s; font-family: 'Plus Jakarta Sans', sans-serif; }
   .search-btn:hover { opacity: 0.85; }
   .hero-note { font-size: 13px; color: var(--muted); margin-top: 14px; }
 
   /* MODAL OVERLAY */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 999; display: flex; align-items: flex-end; justify-content: center; padding: 0; }
-  .modal-card { background: #fff; border-radius: 28px 28px 0 0; width: 100%; max-width: 420px; padding: 32px 28px 40px; text-align: center; max-height: 92vh; overflow-y: auto; position: relative; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .modal-card { background: #fff; border-radius: 24px; width: 100%; max-width: 420px; padding: 28px 24px 32px; text-align: center; max-height: calc(100vh - 32px); overflow-y: auto; position: relative; -webkit-overflow-scrolling: touch; }
 
   /* ANALYZING SCREEN */
-  .modal-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 28px; color: #111; letter-spacing: -0.01em; margin-bottom: 6px; }
-  .modal-username { font-size: 15px; color: #888; margin-bottom: 24px; font-weight: 500; }
+  .modal-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 26px; color: #111; letter-spacing: -0.01em; margin-bottom: 4px; }
+  .modal-username { font-size: 20px; color: #1a1a1a; margin-bottom: 20px; font-weight: 700; letter-spacing: -0.02em; }
 
-  .modal-avatar-wrap { position: relative; width: 90px; height: 90px; margin: 0 auto 24px; }
-  .modal-avatar-ring { position: absolute; inset: -4px; border-radius: 50%; background: linear-gradient(135deg, #ffafcc, #ff6b9d); animation: spin-ring 3s linear infinite; }
+  .modal-avatar-wrap { display: none; }
+  .modal-avatar-ring { position: absolute; inset: -4px; border-radius: 50%; background: linear-gradient(135deg, #ffafcc, #f472b6); animation: spin-ring 3s linear infinite; }
   @keyframes spin-ring { to { transform: rotate(360deg); } }
   .modal-avatar-img { position: absolute; inset: 4px; border-radius: 50%; object-fit: cover; width: calc(100% - 8px); height: calc(100% - 8px); background: #eee; z-index: 1; }
   .modal-avatar-fallback { position: absolute; inset: 4px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #FF6FD8); z-index: 1; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 900; color: #fff; }
   .modal-avatar-fallback.hidden { display: none; }
 
-  .progress-wrap { margin-bottom: 20px; text-align: left; }
+  .progress-wrap { margin-bottom: 14px; text-align: left; }
   .progress-labels { display: flex; justify-content: space-between; font-size: 13px; color: #888; font-weight: 500; margin-bottom: 8px; }
   .progress-track { height: 8px; background: #f0f0f0; border-radius: 100px; overflow: hidden; }
-  .progress-bar { height: 100%; background: linear-gradient(135deg, #ffafcc, #ff6b9d); border-radius: 100px; width: 0%; transition: width 0.4s ease; }
+  .progress-bar { height: 100%; background: linear-gradient(135deg, #ffafcc, #f472b6); border-radius: 100px; width: 0%; transition: width 0.4s ease; }
 
-  .steps-list { display: flex; flex-direction: column; gap: 10px; }
-  .step-row { display: flex; align-items: center; gap: 12px; background: #f8f8f8; border-radius: 14px; padding: 14px 16px; transition: background 0.3s; }
+  .steps-list { display: flex; flex-direction: column; gap: 8px; }
+  .step-row { display: flex; align-items: center; gap: 10px; background: #f8f8f8; border-radius: 12px; padding: 10px 14px; transition: background 0.3s; }
   .step-row.active { background: #fff0f5; }
   .step-row.pending { opacity: 0.45; }
   .step-icon-wrap { font-size: 18px; flex-shrink: 0; width: 36px; height: 36px; background: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
@@ -88,11 +89,11 @@
   .step-check { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #ddd; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
   .step-check.done { background: #16a34a; border-color: #16a34a; }
   .step-check.done::after { content: '✓'; color: #fff; font-size: 12px; font-weight: 700; }
-  .step-check.spinning { border-color: #ff6b9d; border-top-color: transparent; animation: spin-check 0.7s linear infinite; }
+  .step-check.spinning { border-color: #f472b6; border-top-color: transparent; animation: spin-check 0.7s linear infinite; }
   @keyframes spin-check { to { transform: rotate(360deg); } }
 
   /* RESULTS SCREEN */
-  .locked-list { position: relative; margin: 0 0 20px; border-radius: 16px; overflow: hidden; border: 1px solid #eee; }
+  .locked-list { position: relative; margin: 0 0 14px; border-radius: 14px; overflow: hidden; border: 1px solid #eee; }
   .locked-row { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #f0f0f0; background: #fff; }
   .locked-row:last-child { border-bottom: none; }
   .locked-row.blurred { filter: blur(5px); user-select: none; pointer-events: none; }
@@ -104,13 +105,13 @@
   .lock-icon { font-size: 32px; }
   .lock-msg { font-size: 14px; font-weight: 700; color: #333; }
 
-  .results-bullets { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .results-bullets { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
   .results-bullet { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #555; font-weight: 500; }
   .results-bullet::before { content: '✓'; width: 20px; height: 20px; border-radius: 50%; background: rgba(22,163,74,0.1); color: #16a34a; font-size: 11px; font-weight: 800; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
 
-  .unlock-btn { display: block; width: 100%; background: linear-gradient(135deg, #ffafcc, #ff6b9d); color: #fff; text-decoration: none; padding: 16px; border-radius: 100px; font-size: 16px; font-weight: 800; margin-bottom: 14px; transition: opacity 0.2s; box-shadow: 0 4px 20px rgba(255,107,157,0.35); }
+  .unlock-btn { display: block; width: 100%; background: linear-gradient(135deg, #ffafcc, #f472b6); color: #fff; text-decoration: none; padding: 16px; border-radius: 100px; font-size: 16px; font-weight: 800; margin-bottom: 14px; transition: opacity 0.2s; box-shadow: 0 4px 20px rgba(244,114,182,0.3); }
   .unlock-btn:hover { opacity: 0.9; }
-  .modal-close-link { background: none; border: none; color: #aaa; font-size: 13px; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; }
+  .modal-close-link { background: none; border: none; color: #aaa; font-size: 13px; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; text-decoration: underline; }
 
   /* FEED TAG (reused in locked rows) */
   .feed-tag { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 100px; letter-spacing: 0.04em; flex-shrink: 0; }
@@ -148,16 +149,32 @@
   .step-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
 
   /* REVIEWS */
-  .reviews-track { overflow: hidden; position: relative; padding: 0 0 8px; }
-  .reviews-track::before, .reviews-track::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
+  /* REVIEWS CAROUSEL */
+  .reviews-carousel-wrap { position: relative; padding: 0 0 48px; }
+  .reviews-track { overflow: hidden; position: relative; cursor: grab; user-select: none; }
+  .reviews-track:active { cursor: grabbing; }
+  .reviews-track::before, .reviews-track::after { content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none; }
   .reviews-track::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
   .reviews-track::after { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
-  .reviews-inner { display: flex; gap: 16px; animation: marquee 30s linear infinite; width: max-content; }
-  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .reviews-inner { display: flex; gap: 16px; transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: transform; padding: 8px 4px; }
+  .reviews-inner.no-transition { transition: none; }
   .review-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; width: 280px; flex-shrink: 0; }
-  .review-stars { display: flex; gap: 3px; margin-bottom: 12px; color: #FBBF24; font-size: 14px; }
-  .review-text { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
-  .review-author { font-size: 13px; font-weight: 600; color: var(--text); }
+  .review-stars { display: flex; gap: 2px; color: #FBBF24; font-size: 13px; margin-bottom: 0; }
+  .review-text { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 0; }
+  .review-author { font-size: 14px; font-weight: 700; color: var(--text); }
+  .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .review-pfp { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid var(--border); }
+  .review-meta { display: flex; flex-direction: column; gap: 3px; }
+  .reviews-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 20px; }
+  .reviews-btn { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--card); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--text); transition: all 0.2s; flex-shrink: 0; }
+  .reviews-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+  .reviews-btn:disabled { opacity: 0.3; cursor: default; }
+  .reviews-pause-btn { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--card); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--muted); transition: all 0.2s; }
+  .reviews-pause-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .reviews-dots { display: flex; gap: 6px; align-items: center; }
+  .reviews-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); cursor: pointer; transition: all 0.2s; border: none; padding: 0; }
+  .reviews-dot.active { background: var(--accent); width: 18px; border-radius: 3px; }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
   /* FAQ */
   .faq-list { display: flex; flex-direction: column; }
@@ -208,7 +225,7 @@
     .search-btn { padding: 11px 16px; font-size: 13px; }
 
     /* Modal */
-    .modal-card { padding: 24px 18px; border-radius: 22px; }
+    .modal-card { padding: 20px 16px 24px; border-radius: 20px; }
     .modal-title { font-size: 22px; }
     .step-label { font-size: 13px; }
     .step-icon-wrap { width: 30px; height: 30px; font-size: 15px; }
@@ -233,7 +250,8 @@
     .step-title { font-size: 16px; }
 
     /* Reviews */
-    .review-card { width: 240px; padding: 18px; }
+    .review-card { width: calc(85vw - 32px); max-width: 260px; padding: 18px; }
+    .reviews-btn { display: none; }
 
     /* FAQ */
     .faq-q { font-size: 14px; }
@@ -251,12 +269,9 @@
     footer { flex-direction: column; align-items: flex-start; padding: 24px 16px; }
     .footer-links { gap: 16px; flex-wrap: wrap; }
   }
-  @media (min-width: 601px) {
-    .modal-overlay { align-items: center; padding: 24px; }
-    .modal-card { border-radius: 28px; padding-bottom: 32px; }
-  }
+
   @media (prefers-reduced-motion: reduce) {
-    .reviews-inner { animation: none; }
+    .reviews-inner { transition: none; }
     .live-dot { animation: none; }
   }
 </style>
@@ -304,7 +319,7 @@
       />
       <button class="search-btn" id="search-btn" onclick="startSearch()">Search</button>
     </div>
-    <p class="hero-note">Try any public Instagram account. Free on iOS.</p>
+    <p class="hero-note">Try any public Instagram account. Free to download.</p>
   </div>
 </section>
 
@@ -367,7 +382,7 @@
       <h2 class="modal-title">Recent Follows</h2>
       <div id="results-username" class="modal-username">@username</div>
 
-      <div class="modal-avatar-wrap" style="margin-bottom:20px;">
+      <div class="modal-avatar-wrap" style="margin-bottom:14px;">
         <div class="modal-avatar-ring"></div>
         <img id="results-avatar" class="modal-avatar-img" src="" alt="" style="display:none;" />
         <div class="modal-avatar-fallback" id="results-avatar-fallback"></div>
@@ -407,14 +422,12 @@
       <div class="results-bullets">
         <div class="results-bullet">See exactly who they recently followed</div>
         <div class="results-bullet">Get notified when they follow someone new</div>
-        <div class="results-bullet">Cancel anytime, no commitment</div>
       </div>
 
       <a href="https://apps.apple.com/us/app/lurke-unfollowers-tracker/id6759174957" class="unlock-btn" target="_blank">
         🔓 &nbsp;Get Lurke Free
       </a>
-      <p style="font-size:12px;color:#aaa;margin-bottom:12px;">Free to download on iOS</p>
-      <button class="modal-close-link" onclick="closeResults()">Search another account</button>
+
     </div>
 
   </div>
@@ -427,8 +440,8 @@
     <div class="stat-label">Profiles Tracked</div>
   </div>
   <div class="stat">
-    <div class="stat-number">4.8<span>★</span></div>
-    <div class="stat-label">App Store Rating</div>
+    <div class="stat-number">🔒</div>
+    <div class="stat-label">Private &amp; Secure</div>
   </div>
   <div class="stat">
     <div class="stat-number">100<span>%</span></div>
@@ -505,21 +518,22 @@
   <h2 class="section-title">People are obsessed</h2>
 </section>
 
-<div class="reviews-track" style="padding:0 0 80px;">
-  <div class="reviews-inner">
-    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Finally an app that actually works. Found out 3 people unfollowed me the same day I posted."</div><div class="review-author">@kaitlyn.b</div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"The ghost follower feature is insane. Cleaned up over 200 dead accounts in 10 minutes."</div><div class="review-author">@devontae_m</div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"My ex unfollowed me and Lurke caught it in real time. It hurts but I needed to know."</div><div class="review-author">@priya.k22</div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Super clean design, no ads, works exactly as advertised. Been using it every morning."</div><div class="review-author">@noahfitz</div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"The 'not following back' list was eye-opening. Thought we were mutuals. We were not."</div><div class="review-author">@jayda.rr</div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Lurke told me someone unfollowed me before I even checked my phone. It's that fast."</div><div class="review-author">@chris_v</div></div>
-    <!-- duplicate for seamless loop -->
-    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Finally an app that actually works. Found out 3 people unfollowed me the same day I posted."</div><div class="review-author">@kaitlyn.b</div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"The ghost follower feature is insane. Cleaned up over 200 dead accounts in 10 minutes."</div><div class="review-author">@devontae_m</div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"My ex unfollowed me and Lurke caught it in real time. It hurts but I needed to know."</div><div class="review-author">@priya.k22</div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Super clean design, no ads, works exactly as advertised. Been using it every morning."</div><div class="review-author">@noahfitz</div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"The 'not following back' list was eye-opening. Thought we were mutuals. We were not."</div><div class="review-author">@jayda.rr</div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Lurke told me someone unfollowed me before I even checked my phone. It's that fast."</div><div class="review-author">@chris_v</div></div>
+<div class="reviews-carousel-wrap">
+  <div class="reviews-track" id="reviews-track">
+    <div class="reviews-inner" id="reviews-inner">
+      <div class="review-card"><div class="review-header"><img class="review-pfp" src="data:image/jpeg;base64,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" alt="Kaitlyn B."><div class="review-meta"><div class="review-author">Kaitlyn B.</div><div class="review-stars">★★★★★</div></div></div><div class="review-text">"Finally an app that actually works. Found out 3 people unfollowed me the same day I posted."</div></div>
+      <div class="review-card"><div class="review-header"><img class="review-pfp" src="data:image/jpeg;base64,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" alt="Devontae M."><div class="review-meta"><div class="review-author">Devontae M.</div><div class="review-stars">★★★★★</div></div></div><div class="review-text">"The ghost follower feature is insane. Cleaned up over 200 dead accounts in 10 minutes."</div></div>
+      <div class="review-card"><div class="review-header"><img class="review-pfp" src="data:image/jpeg;base64,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" alt="Priya K."><div class="review-meta"><div class="review-author">Priya K.</div><div class="review-stars">★★★★★</div></div></div><div class="review-text">"My ex unfollowed me and Lurke caught it in real time. It hurts but I needed to know."</div></div>
+      <div class="review-card"><div class="review-header"><img class="review-pfp" src="data:image/jpeg;base64,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" alt="Noah F."><div class="review-meta"><div class="review-author">Noah F.</div><div class="review-stars">★★★★★</div></div></div><div class="review-text">"Super clean design, no ads, works exactly as advertised. Been using it every morning."</div></div>
+      <div class="review-card"><div class="review-header"><img class="review-pfp" src="data:image/jpeg;base64,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" alt="Jayda R."><div class="review-meta"><div class="review-author">Jayda R.</div><div class="review-stars">★★★★★</div></div></div><div class="review-text">"The 'not following back' list was eye-opening. Thought we were mutuals. We were not."</div></div>
+      <div class="review-card"><div class="review-header"><img class="review-pfp" src="data:image/jpeg;base64,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" alt="Chris V."><div class="review-meta"><div class="review-author">Chris V.</div><div class="review-stars">★★★★★</div></div></div><div class="review-text">"Lurke told me someone unfollowed me before I even checked my phone. It's that fast."</div></div>
+    </div>
+  </div>
+  <div class="reviews-controls">
+    <button class="reviews-btn" id="rev-prev" onclick="reviewsNav(-1)" aria-label="Previous">&#8592;</button>
+    <div class="reviews-dots" id="reviews-dots"></div>
+    <button class="reviews-pause-btn" id="rev-pause" onclick="reviewsTogglePause()" aria-label="Pause autoplay">&#9646;&#9646;</button>
+    <button class="reviews-btn" id="rev-next" onclick="reviewsNav(1)" aria-label="Next">&#8594;</button>
   </div>
 </div>
 
@@ -547,7 +561,7 @@
       </details>
       <details class="faq-item">
         <summary class="faq-q">Is Lurke available on Android?<span class="faq-icon">+</span></summary>
-        <p class="faq-a">Currently, Lurke is available for iOS on the App Store. An Android version is in the works. Check back soon.</p>
+        <p class="faq-a">Yes! Lurke is available on both the App Store for iOS and Google Play for Android. <a href="https://play.google.com/store/apps/details?id=com.lurke.app" target="_blank" style="color:var(--accent);font-weight:600;">Download on Google Play</a>.</p>
       </details>
     </div>
   </section>
@@ -565,8 +579,8 @@
   <div class="cta-badges">
     <div class="badge-item"><span class="badge-check"></span>Free to download</div>
     <div class="badge-item"><span class="badge-check"></span>Password never stored</div>
-    <div class="badge-item"><span class="badge-check"></span>iOS 15+ required</div>
-    <div class="badge-item"><span class="badge-check"></span>US App Store</div>
+    <div class="badge-item"><span class="badge-check"></span>iOS &amp; Android</div>
+    <div class="badge-item"><span class="badge-check"></span>Password never stored</div>
   </div>
 </section>
 
@@ -575,10 +589,9 @@
   <div class="footer-logo">LUR<span>KE</span></div>
   <div class="footer-links">
     <a href="https://apps.apple.com/us/app/lurke-unfollowers-tracker/id6759174957" target="_blank">App Store</a>
-    <a href="#">Privacy Policy</a>
-    <a href="#">Terms</a>
+    <a href="https://play.google.com/store/apps/details?id=com.lurke.app" target="_blank">Google Play</a>
   </div>
-  <div class="footer-copy">2026 Lurke. Not affiliated with Meta or Instagram. US iOS users only.</div>
+  <div class="footer-copy">2026 Lurke. Not affiliated with Meta or Instagram.</div>
 </footer>
 
 <script>
@@ -719,6 +732,135 @@
     document.getElementById('search-input').value = '';
     document.getElementById('search-input').focus();
   }
+
+  // ── REVIEWS CAROUSEL (infinite loop) ─────────────────────────
+  (function() {
+    const track = document.getElementById('reviews-track');
+    const inner = document.getElementById('reviews-inner');
+    const dotsWrap = document.getElementById('reviews-dots');
+    const pauseBtn = document.getElementById('rev-pause');
+
+    // Clone cards for infinite loop: [clone of last] + [originals] + [clone of first]
+    const origCards = Array.from(inner.querySelectorAll('.review-card'));
+    const total = origCards.length;
+
+    // Prepend clone of last card, append clone of first
+    const cloneLast = origCards[total - 1].cloneNode(true);
+    const cloneFirst = origCards[0].cloneNode(true);
+    inner.insertBefore(cloneLast, inner.firstChild);
+    inner.appendChild(cloneFirst);
+
+    const allCards = inner.querySelectorAll('.review-card');
+
+    // Calculate card width after clones added
+    const firstCard = allCards[0];
+    const cardStyle = getComputedStyle(inner);
+    const gap = parseInt(cardStyle.gap) || 16;
+    const CARD_W = firstCard.offsetWidth + gap;
+
+    // Start at index 1 (first real card, after the prepended clone)
+    let current = 1;
+    let paused = false;
+    let autoTimer = null;
+    let isTransitioning = false;
+
+    // Build dots (one per original card)
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('button');
+      d.className = 'reviews-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Go to review ' + (i + 1));
+      d.onclick = () => goTo(i + 1);
+      dotsWrap.appendChild(d);
+    }
+
+    function updateDots() {
+      // Map current index (1-based with clones) back to dot index (0-based)
+      let dotIdx = current - 1;
+      if (dotIdx < 0) dotIdx = total - 1;
+      if (dotIdx >= total) dotIdx = 0;
+      dotsWrap.querySelectorAll('.reviews-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === dotIdx);
+      });
+    }
+
+    function goTo(idx, animate) {
+      if (animate === false) inner.classList.add('no-transition');
+      else inner.classList.remove('no-transition');
+      current = idx;
+      inner.style.transform = 'translateX(-' + (current * CARD_W) + 'px)';
+      updateDots();
+    }
+
+    // After transition ends, silently jump if on a clone
+    inner.addEventListener('transitionend', () => {
+      if (current === 0) {
+        inner.style.transition = 'none';
+        current = total;
+        inner.style.transform = 'translateX(-' + (current * CARD_W) + 'px)';
+        updateDots();
+        requestAnimationFrame(() => {
+          inner.style.transition = '';
+        });
+      } else if (current === total + 1) {
+        inner.style.transition = 'none';
+        current = 1;
+        inner.style.transform = 'translateX(-' + (current * CARD_W) + 'px)';
+        updateDots();
+        requestAnimationFrame(() => {
+          inner.style.transition = '';
+        });
+      }
+      isTransitioning = false;
+    });
+
+    function startAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => {
+        goTo(current + 1);
+      }, 3000);
+    }
+
+    window.reviewsNav = function(dir) {
+      goTo(current + dir);
+      if (!paused) startAuto();
+    };
+
+    window.reviewsTogglePause = function() {
+      paused = !paused;
+      pauseBtn.innerHTML = paused ? '&#9654;' : '&#9646;&#9646;';
+      pauseBtn.title = paused ? 'Resume autoplay' : 'Pause autoplay';
+      if (paused) clearInterval(autoTimer);
+      else startAuto();
+    };
+
+    // Pause on hover
+    track.addEventListener('mouseenter', () => { if (!paused) clearInterval(autoTimer); });
+    track.addEventListener('mouseleave', () => { if (!paused) startAuto(); });
+
+    // Touch / drag swipe
+    let startX = 0, isDragging = false;
+    track.addEventListener('pointerdown', e => { startX = e.clientX; isDragging = true; inner.classList.add('no-transition'); });
+    track.addEventListener('pointermove', e => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      inner.style.transform = 'translateX(' + (-current * CARD_W + dx) + 'px)';
+    });
+    track.addEventListener('pointerup', e => {
+      if (!isDragging) return;
+      isDragging = false;
+      const dx = e.clientX - startX;
+      goTo(Math.abs(dx) > 50 ? (dx < 0 ? current + 1 : current - 1) : current);
+      if (!paused) startAuto();
+    });
+    track.addEventListener('pointercancel', () => { isDragging = false; goTo(current); });
+
+    // Init: jump to first real card without animation
+    goTo(1, false);
+    startAuto();
+
+    window.addEventListener('resize', () => location.reload());
+  })();
+  // ──────────────────────────────────────────────────────────────
 </script>
 
 </body>
