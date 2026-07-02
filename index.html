@@ -8,896 +8,475 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👁️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
 <style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { background:#fff; color-scheme:light; scroll-behavior:smooth; }
+body { background:#fff; color:#1a1a1a; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; overflow-x:hidden; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; background: #ffffff; color-scheme: light; }
-  body { background: #ffffff; color: #1a1a1a; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; overflow-x: hidden; }
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 24px; background:#fff; border-bottom:1px solid #f0f0f0; }
+.logo { font-weight:900; font-size:20px; letter-spacing:0.1em; color:#1a1a1a; text-decoration:none;  }
+.logo span { color:#e0529a; }
+.nav-btn { display:flex; align-items:center; gap:8px; background:#111; color:#fff; text-decoration:none; padding:10px 18px; border-radius:100px; font-size:13px; font-weight:600; }
 
-  /* NAV */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; background: rgba(255,255,255,0.95);  border-bottom: 1px solid #f0f0f0; }
-  .nav-logo { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 900; font-size: 22px; letter-spacing: 0.12em; color: #1a1a1a; text-decoration: none; }
-  .nav-logo span { color: #e0529a; }
-  .nav-cta { display: flex; align-items: center; gap: 10px; background: #111111; color: #ffffff; text-decoration: none; padding: 10px 20px; border-radius: 100px; font-size: 13px; font-weight: 600; transition: opacity 0.2s; }
-  .nav-cta:hover { opacity: 0.85; }
+/* HERO */
+.hero { background:linear-gradient(160deg,#ffe4ef,#ffc8e0,#ffafd3); padding:120px 24px 72px; text-align:center; }
+.badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.6); border:1px solid rgba(255,255,255,0.8); border-radius:100px; padding:5px 12px; font-size:11px; font-weight:700; color:#1a1a1a; letter-spacing:0.05em; margin-bottom:28px; }
+.badge-dot { width:6px; height:6px; border-radius:50%; background:#16a34a; }
+.hero h1 { font-family:'Barlow Condensed',-apple-system,sans-serif; font-size:clamp(48px,6vw,68px); font-weight:900; line-height:1.05; letter-spacing:-0.01em; color:#1a1a1a; margin-bottom:24px; text-transform:none; }
+.hero h1 em { font-style:normal; color:#e0529a; display:block; }
+.hero p { font-size:16px; color:#333333; line-height:1.65; max-width:420px; margin:0 auto 36px; }
+.search-box { display:flex; align-items:center; background:#fff; border-radius:100px; padding:6px 6px 6px 18px; box-shadow:0 4px 20px rgba(0,0,0,0.12); max-width:480px; margin:0 auto; }
+.search-at { color:#aaa; font-size:18px; font-weight:600; margin-right:4px; }
+.search-input { flex:1; border:none; outline:none; font-size:16px; font-weight:500; color:#111; background:transparent; min-width:0; font-family:inherit; }
+.search-input::placeholder { color:#bbb; }
+.search-btn { background:#e0529a; color:#fff; border:none; border-radius:100px; padding:11px 22px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+.hero-note { font-size:12px; color:#444444; margin-top:12px; }
 
-  /* HERO */
-  .hero { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 140px 28px 80px; gap: 0; position: relative; overflow: hidden; background: linear-gradient(160deg, #ffe4ef 0%, #ffc8e0 50%, #ffafd3 100%); }
-  .hero-glow { display: none; }
-  .live-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.75); border-radius: 100px; padding: 6px 14px; font-size: 11px; font-weight: 700; color: #1a1a1a; letter-spacing: 0.06em; margin-bottom: 32px; position: relative; z-index: 1; }
-  .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #16a34a; animation: pulse-green 1.5s infinite; }
-  @keyframes pulse-green { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.85)} }
-  .hero h1 { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 900; font-size: clamp(38px,9vw,100px); line-height: 0.95; letter-spacing: -0.01em; text-transform: uppercase; position: relative; z-index: 1; margin-bottom: 28px; color: #1a1a1a; }
-  .hero h1 em { font-style: normal; color: #e0529a; display: block; }
-  .hero-sub { font-size: clamp(15px,2vw,18px); color: #333333; max-width: 440px; line-height: 1.7; position: relative; z-index: 1; margin-bottom: 40px; }
+/* MODAL */
+.overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center; padding:16px; }
+.overlay.show { display:flex; }
+.modal { background:#fff; border-radius:20px; width:100%; max-width:400px; padding:28px 22px; text-align:center; max-height:90vh; overflow-y:auto; }
+.modal h2 { font-size:22px; font-weight:900; color:#111; margin-bottom:4px;  }
+.modal-user { font-size:18px; font-weight:700; color:#1a1a1a; margin-bottom:20px; }
+.progress-wrap { margin-bottom:16px; text-align:left; }
+.progress-labels { display:flex; justify-content:space-between; font-size:12px; color:#888; margin-bottom:6px; }
+.progress-track { height:7px; background:#f0f0f0; border-radius:100px; overflow:hidden; }
+.progress-bar { height:100%; background:linear-gradient(90deg,#ffafcc,#e0529a); border-radius:100px; width:0%; transition:width 0.4s ease; }
+.step { display:flex; align-items:center; gap:10px; background:#f8f8f8; border-radius:10px; padding:10px 12px; margin-bottom:8px; opacity:0.4; }
+.step.active { background:#fff0f6; opacity:1; }
+.step-icon { width:28px; height:28px; background:#fff; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
+.step-label { flex:1; font-size:13px; font-weight:600; color:#222; text-align:left; }
+.step-check { width:20px; height:20px; border-radius:50%; border:2px solid #ddd; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:11px; }
+.step-check.done { background:#16a34a; border-color:#16a34a; color:#fff; }
 
-  /* SEARCH */
-  .search-wrap { position: relative; z-index: 1; width: 100%; max-width: 520px; }
-  .search-box { display: flex; align-items: center; background: #ffffff; border-radius: 100px; padding: 6px 6px 6px 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.12); }
-  .search-at { color: #aaaaaa; font-size: 20px; font-weight: 600; margin-right: 4px; flex-shrink: 0; }
-  .search-input { flex: 1; border: none; outline: none; font-size: 16px; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 500; color: #111111; background: transparent; min-width: 0; }
-  .search-input::placeholder { color: #bbbbbb; }
-  .search-btn { background: #e0529a; color: #ffffff; border: none; border-radius: 100px; padding: 12px 24px; font-size: 14px; font-weight: 700; cursor: pointer; flex-shrink: 0; transition: opacity 0.2s; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
-  .search-btn:hover { opacity: 0.85; }
-  .hero-note { font-size: 12px; color: #444444; margin-top: 10px; }
+/* RESULTS */
+.locked-list { border:1px solid #eee; border-radius:12px; overflow:hidden; margin-bottom:16px; position:relative; }
+.locked-row { display:flex; align-items:center; gap:10px; padding:12px 14px; border-bottom:1px solid #f0f0f0; background:#fff; filter:blur(4px); user-select:none; pointer-events:none; }
+.locked-row:last-child { border-bottom:none; }
+.locked-av { width:34px; height:34px; border-radius:50%; flex-shrink:0; }
+.locked-name { font-size:13px; font-weight:700; color:#111; }
+.locked-time { font-size:11px; color:#aaa; }
+.lock-cover { position:absolute; inset:0; background:rgba(255,255,255,0.55); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; }
+.lock-cover span { font-size:13px; font-weight:700; color:#333; }
+.tag { font-size:10px; font-weight:700; padding:2px 7px; border-radius:100px; background:rgba(22,163,74,0.1); color:#16a34a; }
+.bullets { margin-bottom:16px; }
+.bullet { display:flex; align-items:center; gap:8px; font-size:13px; color:#444; margin-bottom:6px; font-weight:500; }
+.bullet::before { content:'✓'; width:18px; height:18px; border-radius:50%; background:rgba(22,163,74,0.1); color:#16a34a; font-size:10px; font-weight:800; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+.unlock-btn { display:block; width:100%; background:linear-gradient(135deg,#ffafcc,#e0529a); color:#fff; text-decoration:none; padding:14px; border-radius:100px; font-size:15px; font-weight:800; margin-bottom:0; }
 
-  /* MODAL */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75);  z-index: 999; display: flex; align-items: center; justify-content: center; padding: 16px; }
-  .modal-card { background: #ffffff; border-radius: 24px; width: 100%; max-width: 420px; padding: 28px 24px 32px; text-align: center; max-height: calc(100vh - 32px); overflow-y: auto; position: relative; -webkit-overflow-scrolling: touch; }
-  .modal-title { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 900; font-size: 26px; color: #111111; letter-spacing: -0.01em; margin-bottom: 4px; }
-  .modal-username { font-size: 20px; color: #1a1a1a; margin-bottom: 20px; font-weight: 700; letter-spacing: -0.02em; }
-  .modal-avatar-wrap { display: none; }
-  .modal-avatar-ring { display: none; }
-  .modal-avatar-img { display: none; }
-  .modal-avatar-fallback { display: none; }
+/* STATS */
+.stats { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid #f0f0f0; border-bottom:1px solid #f0f0f0; }
+.stat { padding:24px 16px; text-align:center; }
+.stat+.stat { border-left:1px solid #f0f0f0; }
+.stat-n { font-size:36px; font-weight:900; color:#1a1a1a; line-height:1;  }
+.stat-n span { color:#e0529a; }
+.stat-l { font-size:11px; color:#555; margin-top:4px; font-weight:600; letter-spacing:0.03em; }
 
-  /* PROGRESS */
-  .progress-wrap { margin-bottom: 14px; text-align: left; }
-  .progress-labels { display: flex; justify-content: space-between; font-size: 13px; color: #888888; font-weight: 500; margin-bottom: 8px; }
-  .progress-track { height: 8px; background: #f0f0f0; border-radius: 100px; overflow: hidden; }
-  .progress-bar { height: 100%; background: linear-gradient(135deg, #ffafcc, #e0529a); border-radius: 100px; width: 0%; transition: width 0.4s ease; }
+/* SECTIONS */
+.section { padding:56px 24px; max-width:960px; margin:0 auto; }
+.eyebrow { font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#e0529a; margin-bottom:10px; display:block; }
+.section h2 { font-family:'Barlow Condensed',-apple-system,sans-serif; font-size:clamp(28px,3.5vw,38px); font-weight:900; text-transform:none; line-height:1.1; letter-spacing:-0.01em; color:#1a1a1a; margin-bottom:32px; }
 
-  /* STEPS */
-  .steps-list { display: flex; flex-direction: column; gap: 8px; }
-  .step-row { display: flex; align-items: center; gap: 10px; background: #f8f8f8; border-radius: 12px; padding: 10px 14px; transition: background 0.3s; }
-  .step-row.active { background: #fff0f6; }
-  .step-row.pending { opacity: 0.45; }
-  .step-icon-wrap { font-size: 18px; flex-shrink: 0; width: 36px; height: 36px; background: #ffffff; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-  .step-label { flex: 1; font-size: 14px; font-weight: 600; color: #222222; text-align: left; }
-  .step-check { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #dddddd; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
-  .step-check.done { background: #16a34a; border-color: #16a34a; }
-  .step-check.done::after { content: '✓'; color: #ffffff; font-size: 12px; font-weight: 700; }
-  .step-check.spinning { border-color: #e0529a; border-top-color: transparent; animation: spin-check 0.7s linear infinite; }
-  @keyframes spin-check { to { transform: rotate(360deg); } }
-  @keyframes spin-ring { to { transform: rotate(360deg); } }
+/* FEATURES */
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+.card { background:#fff; border:1px solid #f0f0f0; border-radius:16px; padding:24px; }
+.card-icon { width:40px; height:40px; border-radius:10px; background:rgba(224,82,154,0.1); display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:14px; }
+.card h3 { font-size:15px; font-weight:700; margin-bottom:6px; color:#1a1a1a; }
+.card p { font-size:13px; color:#444; line-height:1.6; }
 
-  /* RESULTS */
-  .locked-list { position: relative; margin: 0 0 14px; border-radius: 14px; overflow: hidden; border: 1px solid #eeeeee; }
-  .locked-row { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #f0f0f0; background: #ffffff; }
-  .locked-row:last-child { border-bottom: none; }
-  .locked-row.blurred { filter: blur(5px); user-select: none; pointer-events: none; }
-  .locked-avatar { width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0; }
-  .locked-info { flex: 1; text-align: left; }
-  .locked-name { font-size: 14px; font-weight: 700; color: #111111; letter-spacing: 0.05em; }
-  .locked-time { font-size: 12px; color: #aaaaaa; margin-top: 2px; }
-  .lock-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.6);  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
-  .lock-icon { font-size: 32px; }
-  .lock-msg { font-size: 14px; font-weight: 700; color: #333333; }
-  .results-bullets { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-  .results-bullet { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #444444; font-weight: 500; }
-  .results-bullet::before { content: '✓'; width: 20px; height: 20px; border-radius: 50%; background: rgba(22,163,74,0.1); color: #16a34a; font-size: 11px; font-weight: 800; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-  .unlock-btn { display: block; width: 100%; background: linear-gradient(135deg, #ffafcc, #e0529a); color: #ffffff; text-decoration: none; padding: 16px; border-radius: 100px; font-size: 16px; font-weight: 800; margin-bottom: 14px; transition: opacity 0.2s; box-shadow: 0 4px 20px rgba(224,82,154,0.3); }
-  .unlock-btn:hover { opacity: 0.9; }
+/* HOW IT WORKS */
+.how { background:#fff5f9; border-top:1px solid #fce4ec; border-bottom:1px solid #fce4ec; }
+.steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:32px; }
+.step-item { display:flex; flex-direction:column; gap:12px; }
+.step-n { font-size:48px; font-weight:900; color:#ddd; line-height:1;  }
+.step-item h3 { font-size:16px; font-weight:700; color:#1a1a1a; }
+.step-item p { font-size:13px; color:#444; line-height:1.6; }
 
-  /* TAGS */
-  .feed-tag { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 100px; letter-spacing: 0.04em; flex-shrink: 0; }
-  .tag-unfollow { background: rgba(248,113,113,0.15); color: #ef4444; }
-  .tag-follow { background: rgba(22,163,74,0.1); color: #16a34a; }
-  .tag-ghost { background: rgba(224,82,154,0.1); color: #e0529a; }
+/* REVIEWS */
+.reviews-head { background:#fff; padding:44px 24px 0; text-align:center; }
+.carousel-wrap { background:#fff; padding:0 0 16px; overflow:hidden; }
+.carousel-track { overflow:hidden; cursor:grab; touch-action:pan-y; }
+.carousel-track:active { cursor:grabbing; }
+.carousel-inner { display:flex; gap:16px; transition:transform 0.3s ease; padding:16px 0; }
+.carousel-inner.no-t { transition:none; }
+.review-card { background:#fff; border-radius:16px; padding:20px; flex-shrink:0; box-shadow:0 2px 12px rgba(0,0,0,0.07); border:2px solid transparent; }
+.review-card.active { border-color:#e0529a; }
+.review-head { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.review-pfp { width:40px; height:40px; border-radius:50%; object-fit:cover; border:2px solid #f0f0f0; }
+.review-name { font-size:14px; font-weight:700; color:#1a1a1a; }
+.stars { color:#FBBF24; font-size:12px; }
+.review-text { font-size:14px; color:#333; line-height:1.6; }
+.carousel-controls { display:flex; align-items:center; justify-content:center; gap:14px; padding:12px 0; }
+.c-btn { width:36px; height:36px; border-radius:50%; border:1.5px solid #e8e8e8; background:#fff; cursor:pointer; font-size:14px; color:#1a1a1a; display:flex; align-items:center; justify-content:center; }
+.c-pause { width:36px; height:36px; border-radius:50%; border:1.5px solid #e8e8e8; background:#fff; cursor:pointer; font-size:12px; color:#888; display:flex; align-items:center; justify-content:center; }
+.c-dots { display:flex; gap:5px; align-items:center; }
+.c-dot { width:5px; height:5px; border-radius:50%; background:#ddd; cursor:pointer; border:none; padding:0; }
+.c-dot.active { background:#e0529a; width:16px; border-radius:3px; }
 
-  /* STATS */
-  .stats-bar { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; background: #ffffff; padding: 32px 24px; text-align: center; }
-  .stat { padding: 16px; }
-  .stat + .stat { border-left: 1px solid #eeeeee; }
-  .stat-number { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 900; font-size: 40px; color: #1a1a1a; line-height: 1; }
-  .stat-number span { color: #e0529a; }
-  .stat-label { font-size: 12px; color: #555555; margin-top: 6px; font-weight: 600; letter-spacing: 0.04em; }
+/* FAQ */
+.faq-item { border-bottom:1px solid #ebebeb; padding:18px 0; }
+.faq-q { font-size:15px; font-weight:700; color:#1a1a1a; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:12px; list-style:none; line-height:1.4; }
+.faq-q::-webkit-details-marker { display:none; }
+.faq-q svg { flex-shrink:0; transition:transform 0.2s; }
+details[open] .faq-q svg { transform:rotate(180deg); }
+.faq-a { font-size:14px; color:#444; line-height:1.75; padding-top:10px; }
 
-  /* SECTIONS */
-  .section { padding: 60px 24px; max-width: 1000px; margin: 0 auto; background: #ffffff; }
-  .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #e0529a; margin-bottom: 14px; display: block; }
-  .section-title { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 900; font-size: clamp(30px,5vw,48px); text-transform: uppercase; line-height: 1; letter-spacing: -0.01em; margin-bottom: 36px; color: #1a1a1a; }
+/* CTA */
+.cta { text-align:center; padding:72px 24px; background:#fff; }
+.cta h2 { font-family:'Barlow Condensed',-apple-system,sans-serif; font-size:clamp(36px,4vw,48px); font-weight:900; text-transform:none; line-height:1.05; color:#1a1a1a; margin-bottom:16px; }
+.cta h2 span { color:#e0529a; }
+.cta p { font-size:15px; color:#444; margin-bottom:28px; }
+.cta-btn { display:inline-flex; align-items:center; gap:8px; background:#111; color:#fff; text-decoration:none; padding:14px 28px; border-radius:12px; font-size:15px; font-weight:700; }
+.cta-badges { display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:20px; }
+.cbadge { display:flex; align-items:center; gap:6px; font-size:12px; color:#555; }
+.cbadge-check { width:16px; height:16px; border-radius:50%; background:rgba(22,163,74,0.1); color:#16a34a; font-size:9px; font-weight:800; display:flex; align-items:center; justify-content:center; }
 
-  /* FEATURES */
-  .features-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 20px; }
-  .feature-card { background: #ffffff; border: 1px solid #f0f0f0; border-radius: 18px; padding: 28px; transition: border-color 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-  .feature-card:hover { border-color: #e0529a; }
-  .feature-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(224,82,154,0.1); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 18px; }
-  .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #1a1a1a; }
-  .feature-desc { font-size: 14px; color: #444444; line-height: 1.65; }
+/* FOOTER */
+footer { border-top:1px solid #f0f0f0; padding:28px 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; max-width:960px; margin:0 auto; }
+.foot-logo { font-weight:900; font-size:16px; letter-spacing:0.1em; color:#1a1a1a;  }
+.foot-logo span { color:#e0529a; }
+.foot-links { display:flex; gap:20px; }
+.foot-links a { font-size:12px; color:#444; text-decoration:none; }
+.foot-copy { font-size:11px; color:#999; width:100%; text-align:center; margin-top:4px; }
 
-  /* HOW IT WORKS */
-  .how-bg { background: #fff5f9; border-top: 1px solid #fce4ec; border-bottom: 1px solid #fce4ec; }
-  .steps { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 40px; }
-  .step { display: flex; flex-direction: column; gap: 16px; }
-  .step-num { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 900; font-size: 56px; line-height: 1; color: #dddddd; letter-spacing: -0.02em; }
-  .step-title { font-size: 18px; font-weight: 700; color: #1a1a1a; }
-  .step-desc { font-size: 14px; color: #444444; line-height: 1.65; }
+/* QR MODAL */
+.qr-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center; padding:24px; }
+.qr-overlay.show { display:flex; }
+.qr-card { background:#fff; border-radius:20px; max-width:360px; width:100%; padding:36px 28px; text-align:center; }
+.qr-card h2 { font-size:22px; font-weight:900; color:#1a1a1a; margin-bottom:10px;  }
+.qr-card p { font-size:14px; color:#555; line-height:1.6; margin-bottom:24px; }
+.qr-box { background:#f8f8f8; border-radius:12px; padding:16px; display:inline-block; margin-bottom:12px; }
+.qr-note { font-size:12px; color:#aaa; margin-bottom:20px; }
+.qr-dismiss { background:none; border:none; color:#aaa; font-size:13px; cursor:pointer; text-decoration:underline; font-family:inherit; }
 
-  /* REVIEWS */
-  .reviews-carousel-wrap { position: relative; padding: 0 0 20px; background: #ffffff; max-width: 100%; overflow: hidden; }
-  .reviews-track { overflow: hidden; position: relative; cursor: grab; user-select: none; touch-action: pan-y; background: #ffffff; }
-  .reviews-track:active { cursor: grabbing; }
-  .reviews-inner { display: flex; gap: 20px; transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);  padding: 16px 0; align-items: center; }
-  .reviews-inner.no-transition { transition: none; }
-  .review-card { background: #ffffff; border-radius: 20px; padding: 24px; flex-shrink: 0; box-shadow: 0 2px 12px rgba(0,0,0,0.07); border: 2px solid transparent; transition: border-color 0.35s, box-shadow 0.35s; }
-  .review-card.active-card { border-color: #e0529a; box-shadow: 0 4px 24px rgba(224,82,154,0.15); }
-  .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-  .review-pfp { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid #f0f0f0; }
-  .review-meta { display: flex; flex-direction: column; gap: 3px; }
-  .review-author { font-size: 15px; font-weight: 700; color: #1a1a1a; }
-  .review-stars { display: flex; gap: 2px; color: #FBBF24; font-size: 13px; }
-  .review-text { font-size: 15px; color: #333333; line-height: 1.65; }
-  .reviews-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 20px; }
-  .reviews-btn { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid #e8e8e8; background: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #1a1a1a; transition: all 0.2s; flex-shrink: 0; }
-  .reviews-btn:hover { border-color: #e0529a; color: #e0529a; background: rgba(224,82,154,0.08); }
-  .reviews-pause-btn { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid #e8e8e8; background: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #888888; transition: all 0.2s; }
-  .reviews-pause-btn:hover { border-color: #e0529a; color: #e0529a; }
-  .reviews-dots { display: flex; gap: 6px; align-items: center; }
-  .reviews-dot { width: 6px; height: 6px; border-radius: 50%; background: #dddddd; cursor: pointer; transition: all 0.2s; border: none; padding: 0; }
-  .reviews-dot.active { background: #e0529a; width: 18px; border-radius: 3px; }
-
-  /* CTA */
-  .cta-section { text-align: center; padding: 80px 28px; position: relative; overflow: hidden; background: #ffffff; }
-  .cta-glow { display: none; }
-  .cta-section h2 { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 900; font-size: clamp(40px,7vw,72px); text-transform: uppercase; line-height: 1; margin-bottom: 20px; position: relative; z-index: 1; color: #1a1a1a; }
-  .cta-section h2 span { color: #e0529a; }
-  .cta-section p { font-size: 16px; color: #444444; margin-bottom: 32px; position: relative; z-index: 1; }
-  .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: #111111; color: #ffffff; text-decoration: none; padding: 16px 32px; border-radius: 14px; font-size: 16px; font-weight: 700; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s, box-shadow 0.2s; }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,0.2); }
-  .cta-badges { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 28px; position: relative; z-index: 1; }
-  .badge-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #555555; }
-  .badge-check { width: 18px; height: 18px; border-radius: 50%; background: rgba(22,163,74,0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .badge-check::after { content: '✓'; font-size: 10px; color: #16a34a; font-weight: 700; }
-
-  /* FOOTER */
-  footer { border-top: 1px solid #f0f0f0; padding: 32px 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; max-width: 1000px; margin: 0 auto; background: #ffffff; }
-  .footer-logo { font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 900; font-size: 18px; letter-spacing: 0.12em; color: #1a1a1a; }
-  .footer-logo span { color: #e0529a; }
-  .footer-links { display: flex; gap: 24px; }
-  .footer-links a { font-size: 13px; color: #444444; text-decoration: none; transition: color 0.2s; }
-  .footer-links a:hover { color: #1a1a1a; }
-  .footer-copy { font-size: 12px; color: #888888; width: 100%; text-align: center; margin-top: 8px; }
-
-  @media (max-width: 600px) {
-    nav { padding: 14px 16px; }
-    .nav-logo { font-size: 18px; }
-    .hero { padding: 110px 24px 64px; }
-    .hero h1 { font-size: 34px; margin-bottom: 22px; }
-    .hero-sub { font-size: 15px; margin-bottom: 32px; color: #333333; }
-    .search-box { padding: 5px 5px 5px 14px; }
-    .search-at { font-size: 17px; }
-    .search-input { font-size: 15px; }
-    .search-btn { padding: 11px 16px; font-size: 13px; }
-    .modal-card { padding: 20px 16px 24px; border-radius: 20px; }
-    .modal-title { font-size: 22px; color: #111111; }
-    .step-label { font-size: 13px; color: #222222; }
-    .step-icon-wrap { width: 30px; height: 30px; font-size: 15px; }
-    .stat-number { font-size: 24px; color: #1a1a1a; }
-    .stat-label { font-size: 11px; color: #555555; }
-    .stats-bar { padding: 16px 4px; background: #ffffff; }
-    .section { padding: 44px 20px; background: #ffffff; }
-    .section-title { font-size: 28px; margin-bottom: 28px; color: #1a1a1a; }
-    .eyebrow { font-size: 10px; color: #e0529a; }
-    .features-grid { grid-template-columns: 1fr; gap: 14px; }
-    .feature-card { padding: 18px; background: #ffffff; }
-    .feature-title { color: #1a1a1a; }
-    .feature-desc { color: #444444; }
-    .steps { gap: 28px; }
-    .step-num { font-size: 44px; color: #dddddd; }
-    .step-title { font-size: 16px; color: #1a1a1a; }
-    .step-desc { color: #444444; }
-    .how-bg { background: #fff5f9; }
-    .review-card { width: calc(100vw - 96px); max-width: 300px; padding: 20px; background: #ffffff; }
-    .review-author { color: #1a1a1a; }
-    .review-text { color: #333333; }
-    .reviews-btn { display: none; }
-    .reviews-carousel-wrap { background: #ffffff; }
-    .cta-section { padding: 52px 24px; background: #ffffff; }
-    .cta-section h2 { font-size: 38px; color: #1a1a1a; }
-    .cta-section p { font-size: 15px; color: #444444; }
-    .btn-primary { padding: 14px 24px; font-size: 15px; width: 100%; justify-content: center; }
-    .cta-badges { gap: 14px; }
-    .badge-item { font-size: 12px; color: #555555; }
-    footer { flex-direction: column; align-items: flex-start; padding: 24px 24px; background: #ffffff; }
-    .footer-links { gap: 16px; flex-wrap: wrap; }
-    .footer-logo { color: #1a1a1a; }
-    .footer-links a { color: #444444; }
-    .footer-copy { color: #888888; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .reviews-inner { transition: none; }
-    .live-dot { animation: none; }
-  }
+@media (max-width:600px) {
+  nav { padding:14px 16px; }
+  .hero { padding:96px 20px 56px; }
+  .hero p { font-size:15px; }
+  .section { padding:40px 20px; }
+.section h2 { font-family:'Barlow Condensed',-apple-system,sans-serif; font-size:clamp(28px,3.5vw,38px); font-weight:900; text-transform:none; line-height:1.1; letter-spacing:-0.01em; color:#1a1a1a; margin-bottom:32px; }
+.section h2 { font-family:'Barlow Condensed',-apple-system,sans-serif; font-size:clamp(28px,3.5vw,38px); font-weight:900; text-transform:none; line-height:1.1; letter-spacing:-0.01em; color:#1a1a1a; margin-bottom:32px; }
+  .card { padding:18px; }
+  .steps { gap:24px; }
+  .stat-n { font-size:clamp(26px,3.5vw,36px); }
+  .review-card { width:calc(100vw - 72px); max-width:300px; padding:18px; }
+  .c-btn { display:none; }
+  .cta { padding:52px 20px; }
+  .cta-btn { width:100%; justify-content:center; }
+  footer { flex-direction:column; align-items:flex-start; padding:20px; }
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">LUR<span>KE</span></a>
-  <a href="https://apps.apple.com/us/app/lurke-unfollowers-tracker/id6759174957" class="nav-cta" target="_blank">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+  <a href="#" class="logo">LUR<span>KE</span></a>
+  <a href="https://apps.apple.com/us/app/lurke-unfollowers-tracker/id6759174957" class="nav-btn" target="_blank">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
     Download Free
   </a>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-glow"></div>
-
-  <div class="live-badge">
-    <span class="live-dot"></span>
-    LIVE: tracking right now
+  <div class="badge"><span class="badge-dot"></span>LIVE: tracking right now</div>
+  <h1>See exactly who<br><em>unfollowed you</em></h1>
+  <p>Lurke shows you who stopped following, who won't follow back, and who's been ghosting your profile. Instantly and anonymously.</p>
+  <div class="search-box">
+    <span class="search-at">@</span>
+    <input type="text" id="search-input" class="search-input" placeholder="username" autocapitalize="none" autocorrect="off" spellcheck="false"/>
+    <button class="search-btn" onclick="startSearch()">Search</button>
   </div>
-
-  <h1>
-    See exactly who<br>
-    <em>unfollowed you</em>
-  </h1>
-
-  <p class="hero-sub">
-    Lurke shows you who stopped following, who won't follow back, and who's been ghosting your profile. Instantly and anonymously.
-  </p>
-
-  <div class="search-wrap">
-    <div class="search-box">
-      <span class="search-at">@</span>
-      <input
-        type="text"
-        id="search-input"
-        class="search-input"
-        placeholder="username"
-        autocapitalize="none"
-        autocorrect="off"
-        spellcheck="false"
-      />
-      <button class="search-btn" id="search-btn" onclick="startSearch()">Search</button>
-    </div>
-    <p class="hero-note">Try any public Instagram account. Free to download.</p>
-  </div>
+  <p class="hero-note">Try any public Instagram account. Free to download.</p>
 </section>
 
-<!-- MODAL -->
-<div id="modal-overlay" class="modal-overlay" style="display:none;" onclick="closeModalOutside(event)">
-  <div class="modal-card" id="modal-card">
-
-    <!-- ANALYZING SCREEN -->
+<!-- ANALYZING MODAL -->
+<div id="analyze-overlay" class="overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
     <div id="screen-analyzing">
-      <h2 class="modal-title">Analyzing Follows</h2>
-      <div id="modal-username" class="modal-username">@username</div>
-
-      <div class="modal-avatar-wrap">
-        <div class="modal-avatar-ring"></div>
-        <img id="modal-avatar" class="modal-avatar-img" src="" alt="" style="display:none;" />
-        <div class="modal-avatar-fallback" id="modal-avatar-fallback"></div>
-      </div>
-
+      <h2>Analyzing Follows</h2>
+      <div id="modal-user" class="modal-user">@username</div>
       <div class="progress-wrap">
-        <div class="progress-labels">
-          <span>Progress</span>
-          <span id="progress-pct">0%</span>
-        </div>
-        <div class="progress-track">
-          <div class="progress-bar" id="progress-bar"></div>
-        </div>
+        <div class="progress-labels"><span>Progress</span><span id="pct">0%</span></div>
+        <div class="progress-track"><div class="progress-bar" id="pbar"></div></div>
       </div>
-
-      <div class="steps-list">
-        <div class="step-row pending" id="sr-0">
-          <div class="step-icon-wrap">📡</div>
-          <span class="step-label">Connecting to Instagram servers...</span>
-          <div class="step-check" id="sc-0"></div>
-        </div>
-        <div class="step-row pending" id="sr-1">
-          <div class="step-icon-wrap">🔍</div>
-          <span class="step-label">Searching user profile...</span>
-          <div class="step-check" id="sc-1"></div>
-        </div>
-        <div class="step-row pending" id="sr-2">
-          <div class="step-icon-wrap">📥</div>
-          <span class="step-label">Fetching profile data...</span>
-          <div class="step-check" id="sc-2"></div>
-        </div>
-        <div class="step-row pending" id="sr-3">
-          <div class="step-icon-wrap">📊</div>
-          <span class="step-label">Analyzing recent follows...</span>
-          <div class="step-check" id="sc-3"></div>
-        </div>
-        <div class="step-row pending" id="sr-4">
-          <div class="step-icon-wrap">🔒</div>
-          <span class="step-label">Finalizing and securing data...</span>
-          <div class="step-check" id="sc-4"></div>
-        </div>
-      </div>
+      <div id="sr-0" class="step pending"><div class="step-icon">📡</div><span class="step-label">Connecting to Instagram servers...</span><div class="step-check" id="sc-0"></div></div>
+      <div id="sr-1" class="step pending"><div class="step-icon">🔍</div><span class="step-label">Searching user profile...</span><div class="step-check" id="sc-1"></div></div>
+      <div id="sr-2" class="step pending"><div class="step-icon">📥</div><span class="step-label">Fetching profile data...</span><div class="step-check" id="sc-2"></div></div>
+      <div id="sr-3" class="step pending"><div class="step-icon">📊</div><span class="step-label">Analyzing recent follows...</span><div class="step-check" id="sc-3"></div></div>
+      <div id="sr-4" class="step pending"><div class="step-icon">🔒</div><span class="step-label">Finalizing and securing data...</span><div class="step-check" id="sc-4"></div></div>
     </div>
-
-    <!-- RESULTS SCREEN -->
-    <div id="screen-results" style="display:none;">
-      <h2 class="modal-title">Recent Follows</h2>
-      <div id="results-username" class="modal-username">@username</div>
-
-      <div class="modal-avatar-wrap" style="margin-bottom:14px;">
-        <div class="modal-avatar-ring"></div>
-        <img id="results-avatar" class="modal-avatar-img" src="" alt="" style="display:none;" />
-        <div class="modal-avatar-fallback" id="results-avatar-fallback"></div>
-      </div>
-
+    <div id="screen-results" style="display:none">
+      <h2>Recent Follows</h2>
+      <div id="results-user" class="modal-user">@username</div>
       <div class="locked-list">
-        <div class="locked-row blurred">
-          <div class="locked-avatar" style="background:linear-gradient(135deg,#9B6FFF,#FF6FD8)"></div>
-          <div class="locked-info">
-            <div class="locked-name">██████████</div>
-            <div class="locked-time">Just now</div>
-          </div>
-          <span class="feed-tag tag-follow">New follow</span>
-        </div>
-        <div class="locked-row blurred">
-          <div class="locked-avatar" style="background:linear-gradient(135deg,#4ADE80,#06B6D4)"></div>
-          <div class="locked-info">
-            <div class="locked-name">████████</div>
-            <div class="locked-time">3 min ago</div>
-          </div>
-          <span class="feed-tag tag-follow">New follow</span>
-        </div>
-        <div class="locked-row blurred">
-          <div class="locked-avatar" style="background:linear-gradient(135deg,#F87171,#FB923C)"></div>
-          <div class="locked-info">
-            <div class="locked-name">█████████████</div>
-            <div class="locked-time">11 min ago</div>
-          </div>
-          <span class="feed-tag tag-follow">New follow</span>
-        </div>
-        <div class="lock-overlay">
-          <div class="lock-icon">🔒</div>
-          <div class="lock-msg">Data ready. Unlock in the app.</div>
-        </div>
+        <div class="locked-row"><div class="locked-av" style="background:linear-gradient(135deg,#9B6FFF,#FF6FD8)"></div><div><div class="locked-name">██████████</div><div class="locked-time">Just now</div></div><span class="tag">New follow</span></div>
+        <div class="locked-row"><div class="locked-av" style="background:linear-gradient(135deg,#4ADE80,#06B6D4)"></div><div><div class="locked-name">████████</div><div class="locked-time">3 min ago</div></div><span class="tag">New follow</span></div>
+        <div class="locked-row"><div class="locked-av" style="background:linear-gradient(135deg,#F87171,#FB923C)"></div><div><div class="locked-name">█████████████</div><div class="locked-time">11 min ago</div></div><span class="tag">New follow</span></div>
+        <div class="lock-cover"><div style="font-size:28px">🔒</div><span>Data ready. Unlock in the app.</span></div>
       </div>
-
-      <div class="results-bullets">
-        <div class="results-bullet">See exactly who they recently followed</div>
-        <div class="results-bullet">Get notified when they follow someone new</div>
+      <div class="bullets">
+        <div class="bullet">See exactly who they recently followed</div>
+        <div class="bullet">Get notified when they follow someone new</div>
       </div>
-
-      <a href="https://apps.apple.com/us/app/lurke-unfollowers-tracker/id6759174957" class="unlock-btn" target="_blank">
-        🔓 &nbsp;Get Lurke Free
-      </a>
-
+      <a href="https://apps.apple.com/us/app/lurke-unfollowers-tracker/id6759174957" class="unlock-btn" target="_blank">🔓 &nbsp;Get Lurke Free</a>
     </div>
-
   </div>
 </div>
 
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stat">
-    <div class="stat-number">10K<span>+</span></div>
-    <div class="stat-label">Profiles Tracked</div>
-  </div>
-  <div class="stat">
-    <div class="stat-number">🔒</div>
-    <div class="stat-label">Private &amp; Secure</div>
-  </div>
-  <div class="stat">
-    <div class="stat-number">100<span>%</span></div>
-    <div class="stat-label">Anonymous</div>
+<!-- QR MODAL (desktop) -->
+<div id="qr-overlay" class="qr-overlay" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="qr-card">
+    <div style="font-size:44px;margin-bottom:14px;">📱</div>
+    <h2>Mobile Device Required</h2>
+    <p>Lurke is an iOS and Android app. Scan the QR code with your phone to open this page on mobile.</p>
+    <div class="qr-box"><canvas id="qr-canvas" width="160" height="160"></canvas></div>
+    <p class="qr-note">Open your phone camera and point it at the QR code</p>
+    <button class="qr-dismiss" onclick="document.getElementById('qr-overlay').classList.remove('show')">Dismiss</button>
   </div>
 </div>
 
-<!-- FEATURES -->
-<section class="section">
-  <p class="eyebrow">Features</p>
-  <h2 class="section-title">Everything you need<br>to know who's gone</h2>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">👻</div>
-      <div class="feature-title">Unfollower Tracking</div>
-      <div class="feature-desc">Instantly see the moment someone stops following you. No delays, no guesswork. Exact timestamps included.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔔</div>
-      <div class="feature-title">New Follower Alerts</div>
-      <div class="feature-desc">Get a push notification the second you gain a new fan or follower. Know your growth in real time.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔁</div>
-      <div class="feature-title">Not Following Back</div>
-      <div class="feature-desc">Discover who you follow that isn't following you back. Clean up your list without the awkward manual check.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">💀</div>
-      <div class="feature-title">Ghost Followers</div>
-      <div class="feature-desc">Identify inactive accounts quietly dragging down your engagement rate.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🤝</div>
-      <div class="feature-title">Mutual Following</div>
-      <div class="feature-desc">See your true two-way connections at a glance. The people who actually follow you back.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📈</div>
-      <div class="feature-title">Growth Analytics</div>
-      <div class="feature-desc">Track your follower trends over time with clear visual charts. See what's working and what isn't.</div>
-    </div>
-  </div>
-</section>
+<div class="stats">
+  <div class="stat"><div class="stat-n">10K<span>+</span></div><div class="stat-l">Profiles Tracked</div></div>
+  <div class="stat"><div class="stat-n">🔒</div><div class="stat-l">Private &amp; Secure</div></div>
+  <div class="stat"><div class="stat-n">100<span>%</span></div><div class="stat-l">Anonymous</div></div>
+</div>
 
-<!-- HOW IT WORKS -->
-<div class="how-bg">
-  <section class="section">
-    <p class="eyebrow">How it works</p>
-    <h2 class="section-title">Set up in 60 seconds</h2>
+<div class="section">
+  <span class="eyebrow">Features</span>
+  <h2>Everything you need<br>to know who's gone</h2>
+  <div class="grid">
+    <div class="card"><div class="card-icon">👻</div><h3>Unfollower Tracking</h3><p>Instantly see the moment someone stops following you. No delays, no guesswork. Exact timestamps included.</p></div>
+    <div class="card"><div class="card-icon">🔔</div><h3>New Follower Alerts</h3><p>Get a push notification the second you gain a new follower. Know your growth in real time.</p></div>
+    <div class="card"><div class="card-icon">🔁</div><h3>Not Following Back</h3><p>Discover who you follow that isn't following you back. Clean up your list without the awkward manual check.</p></div>
+    <div class="card"><div class="card-icon">💀</div><h3>Ghost Followers</h3><p>Identify inactive accounts quietly dragging down your engagement rate.</p></div>
+    <div class="card"><div class="card-icon">🤝</div><h3>Mutual Following</h3><p>See your true two-way connections at a glance. The people who actually follow you back.</p></div>
+    <div class="card"><div class="card-icon">📈</div><h3>Growth Analytics</h3><p>Track your follower trends over time with clear visual charts. See what's working and what isn't.</p></div>
+  </div>
+</div>
+
+<div class="how">
+  <div class="section">
+    <span class="eyebrow">How it works</span>
+    <h2>Set up in 60 seconds</h2>
     <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-title">Download Lurke</div>
-        <div class="step-desc">Free on the App Store. No referral code, no waitlist. Just install and open.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-title">Connect your Instagram</div>
-        <div class="step-desc">Sign in securely through Instagram's official login. Your password is never stored.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-title">See who unfollowed you</div>
-        <div class="step-desc">Your dashboard loads instantly. Unfollowers, new followers, ghosts: all in one place.</div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- REVIEWS -->
-<div style="background:#ffffff; padding:44px 24px 0; text-align:center;">
-  <p style="font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#e0529a; margin-bottom:14px; display:block;">Reviews</p>
-  <h2 style="font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(30px,5vw,48px); text-transform:uppercase; line-height:1; color:#1a1a1a; margin-bottom:0;">People are obsessed</h2>
-</div>
-
-<div class="reviews-carousel-wrap">
-  <div class="reviews-track" id="reviews-track">
-    <div class="reviews-inner" id="reviews-inner">
-      <div class="review-card"><div class="review-header"><img class="review-pfp" loading="lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAA4ADgDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAAAAYDBAIFBwH/xAAxEAABAwIFAgUDAgcAAAAAAAABAgMEABEFBhIhMUFREyJhcYEHMpEkoVOiscHC0eH/xAAXAQEBAQEAAAAAAAAAAAAAAAACAQMA/8QAGhEAAwEBAQEAAAAAAAAAAAAAAAERAiESMf/aAAwDAQACEQMRAD8AoV4oXTWJd7CsS4r0FAcI5DyY7C3V8JF7d/SlNanZci51LccNgBuSe1brHlqEVtN9lL3+BVvKUNKf1j0VZurQ0+T5Qbdv2v8AFW8pJXDR4rhrmGPoac3Km0qv0v1Hwao085hZbxJ5rD2Gy5PAK0m9ghPW/v8A6pIWlSFqQsEKSSCD0Ndl1HaUfDpWVhIxTITjCAXFxpJCUjkp2Nv5jRS7ljGp+VsRZZkgtwpJStxChfynbULcGiqEsUVJ4Dv8Jf4oLTiRctqHuKBpTW4yyXYWpI3bOr461t8tuxpmEIasjxmhpWALKtfY1RlqdRGcU2jWpNjptyOv7UstPuRpHix1LaWk7EGxFVqqEWo6dFb1vOFEiMgpTcBWnYem/PxSRixZbzE8UoQWkui6OEm1rj+tNUBzF3I2HTJi2URnlKKkpTZZSEkhR7A2PHak3EoUiFLcRIZcauo21Dnrz81Mppi3pNcJMSnOzsV8clJUCEoCR5RboKKrQQkzmNZsNYop/DP6Pb0rQBe4BNhYE1XbYlSZ7LaXVI8VdhrsNIAudr24HWpSNSSNtxbcXrCO0Y7iHUOLDqQQFbcHkWO3SiImm4fKiNSpLjSVR4y/DccQrg2BvbtuBybH80ixY72I4g2w0NT0hwJA9Sa6fh2YHIGHoiGA29YqLi/F0hdySTbT1vxxVKLPyo3MOMQ74fOjhSlRnEbL2NwkcX6Cx+KQRlhYRDlQw2VJWthRZcuATqTtv143txY7bUt5wisy8HxRMdFncLkoK9O2tKkjzEcXuo79hVb6bzXH8yYgp5RK5LRdV6q1g/5VbwuQh76gY9hz+7M9K2iO5Skf21VSHMjsaKnnRVwpr8V372XFNq9wbUVxw8eor0G9FFAZiFlay2yhTrg5CenueBUCcuRJMkvYlPGH+Ir7UI1i/cq2Av7UUUfUcF5TzR1wDJ+H4LKTMjPyHXdBTdahpIPoBSrmOC7l7OsTFwsqjSZAcJ6pJ2Wn8G4/5RRWpkSZty2h7ODT6vLGlJ1rN7alJ2KR6kWP5ooorPTaZplKH//Z" alt="Kaitlyn B."><div class="review-meta"><div class="review-author">Kaitlyn B.</div><div class="review-stars">★★★★★</div></div></div><div class="review-text">"Finally an app that actually works. Found out 3 people unfollowed me the same day I posted."</div></div>
-      <div class="review-card"><div class="review-header"><img class="review-pfp" loading="lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAA4ADgDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAMBBAUCBgf/xAAqEAACAgEEAQQABgMAAAAAAAABAgARAwQSITEFEyJBUSNCYXGx4TKRwf/EABgBAAMBAQAAAAAAAAAAAAAAAAACAwEE/8QAHBEBAQEBAAIDAAAAAAAAAAAAAAERAgMhEiJB/9oADAMBAAIRAxEAPwDAx6ollIZgLDUW7/SZ/kCwTEpbKT7i266bqqj1+Afpf+ROs3Pix2BSFhdftJzmbptuM+pFRu2RtlClVCozbIqALqE7IhBjaR+WUMtWO/8AURqQPSUIx2lzwezNH1cZSseJ7Bok0w/X9pn6g7ceMkE/5ScumVdk5KRyYnyIcoYgD8tdCwJxqg64jsUknjiNrCiJG2UfcG+buaeJGKLuS2rkH4mggiEYwskVRHBqENDYQGqBA9x+f6nIGxsPsTJwwKnmr+eKnpceXwx3C9RySGZCSXF98fPzMt18a2b2vqG9zUwQlq+v5kPlZ+KYyAjZXKoiYwxXgE12PuWzpduRg1GvrkS0+DSenlGBclrQbcpFCr54qzMbW23kDje9hxGhfHX9Sk+xb6WF8UAQ3q381tidTpsuPrGxA/MOpSw7l1GTi1VXrnrg8y3gyMdRptjttYqCL7EbC7SMiszsQjbeAT1RhLPkVw4NUyqgAIuhwBcJmUz6SPMUr05PPw3XE8bg8lWoU7iG/Ern7aEJyeLiYpuVDeQ3rr1LnbkyITd9AVcrthw585dlDFeFIP2IQnVzMmRPr3UjR6dcqOuOmU2DZ7nOLQ4MeVcyhgwa++OLqEJQil5krvU2N44r5ru/5hCEVr//2Q==" alt="Devontae M."><div class="review-meta"><div class="review-author">Devontae M.</div><div class="review-stars">★★★★★</div></div></div><div class="review-text">"The ghost follower feature is insane. Cleaned up over 200 dead accounts in 10 minutes."</div></div>
-      <div class="review-card"><div class="review-header"><img class="review-pfp" loading="lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAA4ADgDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAQDBQYCB//EAC4QAAIBAwMCBQMEAwEAAAAAAAECAwAEEQUSIRMxBhRRYXFBgZEiIzKhQnLB4f/EABgBAQEBAQEAAAAAAAAAAAAAAAIBAAME/8QAIBEAAgICAgIDAAAAAAAAAAAAAAECERIhMUEDIjJRYf/aAAwDAQACEQMRAD8A3t3qNtZyqlw5QsMg7SR/VTwzxTxLLE4dG7EfWqrWkgkniErFSV4prS40i09QDuVSxyPmje6LRU+LpgbKSHy7Sh9gLDnYNx5I9OKq9NgiggaKFNiK+APXtzSWtzy2sc0oJbqKUAb5zn7VmLbXtTs5cibqKTkrIMg/9o9l6PXLAhWC/XaKdXOCAQOT3qg0DUo9WtYrqMbCRtdCf4sO4q1lvbOKQpNKgcnhSMn0oePmhS+zO68kHWuPNxpLlgIwy55Pb4oqLxdIYpkFs0YMzqm8nhDz6fFFaS2RMY1fUI7ySEwhjsGDkV3Z62LSzMHS3uGOP1dwa86l1e9bvcS9+4OK6027vbvVLeKOSRmaQADccferk+Qrbovte1SFCLWZcuhw4U9jgVnpPLTcxvg+hqXxR0xqsyxyb23ZY+9URLKc1oq1Z0m6dG/8HmVLC7SPB/cBBz2OP/KXvnuFZNzElge/6cHPPzSfhK9McV2OptLEfX2pPxBeSm6CO7MvTUjd35zQxeRG9FnqN43krJiqydFjuyeTx378UVQWNlc324woGUHBZuF+KKTSfIF+CcjkjuRzTugXLW2omSIZlKMqAepFaZPD2mL/ACid/wDaQ8/ipZLa2sLZ5LW2jjcDAKJlu/rTa9WLx/JGM1OOSG7dZ1/e/wAxnPOKiaM+TSbtliv371zfLMl5Kkj5dWOc+tdvORpywsCdslbpGe2xjSpxCGySAzfSra406W/liuLW5hL7MBXGO3HvzzSvhmLT3NxNqEjbIVDrEG29QfX8envWqtLi11LUcJBF0w2SFULx7YqXsqTaMrHBf6dIfMoIRId3cYO30x8/3RTHiBgJ2t3mWTosQCO59v6oquJFPFVRprZupCj+ort41dSrDIIoophMm3h7ULvUJII4hISjGKTONxHJJ9zz9yKrZYzDYOGgkDEgHI7Ed/tnNFFBnRbtjehxgbkltY3ZuUeSPO0fXvU097NoUyNZyKWlO9gwyPjH5/NFFFP2FJJQKgXJur55ZQpaVyzADjJ9BRRRXQ85/9k=" alt="Priya K."><div class="review-meta"><div class="review-author">Priya K.</div><div class="review-stars">★★★★★</div></div></div><div class="review-text">"My ex unfollowed me and Lurke caught it in real time. It hurts but I needed to know."</div></div>
-      <div class="review-card"><div class="review-header"><img class="review-pfp" loading="lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAA4ADgDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAUCAwQBBv/EACwQAAICAQIEBgEEAwAAAAAAAAECAAMRBCEFEjFBEyIyUWFxwRQzQoFyodH/xAAXAQEBAQEAAAAAAAAAAAAAAAABAwAC/8QAGREBAQEBAQEAAAAAAAAAAAAAAAERAhIx/9oADAMBAAIRAxEAPwDySftL9SLtyDm6gHf6k19A+pNQu4YZB7ScVqKVhn2AIIyDH3CAFVGGMh8RFomVeVTtktj/AJHXDLAtDk9nMpzU+o9LFuofmsVvC9RxnPURiDlQR3GYnWxn1VqlxyV7jb3zEK9Xu6ZHc5+YSOqsw6fB6HtCBpAo8g+pzOAfzAbCQtJ5PL7ycVvxyg70/wCZ/M36bVpTpra3OHLHG0W0HBo+2/M0aTSLq18VnKliSeX+M61xmvTpxis01rWQzBQG+4pq1Dnil7DJXP8AUUMr6W+tecMx7Dt9xjprGqu1C7EkgZGD2946Mwwu81bWMC5TfA77doTMGst0b8zlvKpwPrtCALBjG8i7ALuCd4EySOtZHNWGOPLnsZzFb8X8K4f+prR7GKIudwNzN6cPXSr4dDswzklusv0OTpKmb1HJP9mWnrKZqW2Vjq0nh2i5kB3w+BkhcH/Ut0HgHU6zkUBPEXAHQeWa0c1nIPaLkrWnieo5OlihyPY5hmNuucXIrZa6a/WObZsHI9sQmm2uu9OS1A6/PaE2thB/HaBKgcznCjqYQnEVpxXrE8BQikDG2TJjVjG6nPxCE3ut4it9RzMCThRvj3kablv4hagPSoBSeuc5xCEZbR1zIvDEbEwhCLh//9k=" alt="Noah F."><div class="review-meta"><div class="review-author">Noah F.</div><div class="review-stars">★★★★★</div></div></div><div class="review-text">"Super clean design, no ads, works exactly as advertised. Been using it every morning."</div></div>
-      <div class="review-card"><div class="review-header"><img class="review-pfp" loading="lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAA4ADgDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAQCAwUGBwH/xAAvEAACAQMDAgUCBQUAAAAAAAABAgMABBESITEFIhNBUYGRBmEUI1KhsTNCU2Nx/8QAGQEAAgMBAAAAAAAAAAAAAAAAAwQAAQIF/8QAHxEAAwACAgMBAQAAAAAAAAAAAAECAxESIQQxQSIy/9oADAMBAAIRAxEAPwBON/B7l1BwCA2cY2xU5b9rmWQRTOqHBdA2BnAyfc0wlr0eAa5Lia9b0iTA+SaJLu0UAQ9Nh055kfJ/asTCLrK9mZFEsEmuFzqJHavG242q+4ivZ7j8fcIzIpUtlcDnFXt1aZO2JY4B/qjA/enLRV6hYTRyrNJM7DEz5ITBB2PANS50tszNcmZXXLKaOxv5RGVRpdS49ODXIIdRB8+DXqvW544LdreVAyt2aRnLbDFeZXNu1rdlZAFbPcg/tPpUivjDZJ9NDvTAkV9CZE1oWwV1Yz7+VFRtTm8twN8sDRV+wTNd5fGwy5xjBA4FSQhQQAN6jFGzLojG38UzH06TTqcEDO2TsaPrQpVoUdiTkHJFalhPdJ0m78NWIBGnA49ST8VO06XFIxLkqfJW2z6+1KsZrm8Wzsw5gTONGwI8yaFlfWg/jLlXL4i438tzaEyyr29xd+EwMDbzrib1w1xKVJPdnJ55rvJbJOn2VxfXDJHF/jAyGGePfGPevPnWSXxJygCuxPbwN87UGPbHMnpI0ujKZ7+2AGdJOfiirvp/CTC4R18RT/TO2oYooqehW1bf5NuG8MRCqsUeOSF1H/n2pv8AGrOqqxOw3DbgVVIuGMhKyyny2GRxS6Rrly0MmDt28j2zRmhBo0bq8WHpbsBhpnManjYc0v0a6SwaWacEB48Kfk/yBU0iguDAJhKUiBCrwMnc5pm6so7+yuoUwuiPIcEZU+VLue22O48spTEowPqjr0XVPDtbYsLeM5YnbJ4A+M1itNGIGCgABSoB8yazwH06SSMHOPvU7OE3F5DH+tsVFKlDDp0ztugfTsLdL8fAknlB0k8IKK6P6cgNr0SOI7sM5+eKKXd1sZmJaMKaF0XUwz6ldvg19iEokRu+b9JJ4+1FFdF9nEovMLwQFUjDSHIyWyD96u6XbgZjCNrILOQcgHB3oooF1pMP48JtM4TqdjJbXMqaSwOkqRwc7059JWLz9TSQgAQ5bf18v5oorHwca7PSelkfmxe9FFFAyf0bxt8T/9k=" alt="Jayda R."><div class="review-meta"><div class="review-author">Jayda R.</div><div class="review-stars">★★★★★</div></div></div><div class="review-text">"The 'not following back' list was eye-opening. Thought we were mutuals. We were not."</div></div>
-      <div class="review-card"><div class="review-header"><img class="review-pfp" loading="lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAA4ADgDASIAAhEBAxEB/8QAGgAAAwADAQAAAAAAAAAAAAAAAAUGAQIEA//EADIQAAIBAwIDBgUCBwAAAAAAAAECAwAEERIhBTFBBhVRcZGhExQiYYFS4SMyM3KSscH/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAcEQEAAgMBAQEAAAAAAAAAAAAAARECElEhEzH/2gAMAwEAAhEDEQA/AOUysTzo0yc9L48qu+7bcHaJV8gKO74vD3rP1hdJQhDDxrXWRzq97utzzjQ+YzXnPbWlrC00wt4okGWdhgAU+sJohv4jH6VY/isiG4PKN/Sqmy43wS9u/lra8t2l6DSQG8iedd7XFqhxrTzCk03nhrHUStrdNyhf0oq1N3agZ+KnloNFN8uFR0rHFr0c5EP2KCsni92RjMY8lrgOfD3rIUkZGPWpULcuvvG8J/re1JO06vxG0i+ZuJcIxACcjnx9KZBH22H+VcHHJ5bOxBCKDK2kFt9sZNK4R+pPgllJHxu3OsD4bkkj7D/tXBlk/UPSpCWNbxBJC+iXk46N+9Muz0lw7zwu7OiAYyc4OaY5TK54xB0ZpPEelFaujfporVsUZpeW7jDaMg7Z5fk4rRp7dm/nhBBG4J3/ABSQWyjIyQv92MV6iEuMLrwOitjIqeqdrcQAl/mFUt985qb7YFZFtmhkUouoFQc74517mFRGFBbbpk496V8ckAWCPJOxO55Cp6sUnZXeKTRE5U43xVl2LVIOEySySAPPIckqWIA2HvmotRrkc+O1VnBFXuqLQ7Z+rK6iN81otSM1uRpedR9yP2opTojWMl5HywBxvn/dFT1GzNo55LeBwcVox1nO+c742FFFUbIq68NIOuwapvtPIRfLobIMY6ctzRRQJopPp+leXPJql7OzF7OdGOCHBUdNxRRVDVoXyW+EGVT0GAaKKKg//9k=" alt="Chris V."><div class="review-meta"><div class="review-author">Chris V.</div><div class="review-stars">★★★★★</div></div></div><div class="review-text">"Lurke told me someone unfollowed me before I even checked my phone. It's that fast."</div></div>
+      <div class="step-item"><div class="step-n">01</div><h3>Download Lurke</h3><p>Free on the App Store and Google Play. No referral code, no waitlist. Just install and open.</p></div>
+      <div class="step-item"><div class="step-n">02</div><h3>Connect your Instagram</h3><p>Sign in securely through Instagram's official login. Your password is never stored.</p></div>
+      <div class="step-item"><div class="step-n">03</div><h3>See who unfollowed you</h3><p>Your dashboard loads instantly. Unfollowers, new followers, ghosts: all in one place.</p></div>
     </div>
   </div>
-  <div class="reviews-controls">
-    <button class="reviews-btn" id="rev-prev" onclick="reviewsNav(-1)" aria-label="Previous">&#8592;</button>
-    <div class="reviews-dots" id="reviews-dots"></div>
-    <button class="reviews-pause-btn" id="rev-pause" onclick="reviewsTogglePause()" aria-label="Pause autoplay">&#9646;&#9646;</button>
-    <button class="reviews-btn" id="rev-next" onclick="reviewsNav(1)" aria-label="Next">&#8594;</button>
+</div>
+
+<div class="reviews-head">
+  <span class="eyebrow">Reviews</span>
+  <h2 style="font-family:'Barlow Condensed',-apple-system,sans-serif;font-weight:900;font-size:clamp(26px,3.5vw,36px);color:#1a1a1a;margin-bottom:0;">People are obsessed</h2>
+</div>
+<div class="carousel-wrap">
+  <div class="carousel-track" id="c-track">
+    <div class="carousel-inner" id="c-inner">
+      <div class="review-card"><div class="review-head"><img class="review-pfp" loading="lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAA4ADgDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAAAAYDBAIFBwH/xAAxEAABAwIFAgUDAgcAAAAAAAABAgMEABEFBhIhMUFREyJhcYEHMpEkoVOiscHC0eH/xAAXAQEBAQEAAAAAAAAAAAAAAAACAQMA/8QAGhEAAwEBAQEAAAAAAAAAAAAAAAERAiESMf/aAAwDAQACEQMRAD8AoV4oXTWJd7CsS4r0FAcI5DyY7C3V8JF7d/SlNanZci51LccNgBuSe1brHlqEVtN9lL3+BVvKUNKf1j0VZurQ0+T5Qbdv2v8AFW8pJXDR4rhrmGPoac3Km0qv0v1Hwao085hZbxJ5rD2Gy5PAK0m9ghPW/v8A6pIWlSFqQsEKSSCD0Ndl1HaUfDpWVhIxTITjCAXFxpJCUjkp2Nv5jRS7ljGp+VsRZZkgtwpJStxChfynbULcGiqEsUVJ4Dv8Jf4oLTiRctqHuKBpTW4yyXYWpI3bOr461t8tuxpmEIasjxmhpWALKtfY1RlqdRGcU2jWpNjptyOv7UstPuRpHix1LaWk7EGxFVqqEWo6dFb1vOFEiMgpTcBWnYem/PxSRixZbzE8UoQWkui6OEm1rj+tNUBzF3I2HTJi2URnlKKkpTZZSEkhR7A2PHak3EoUiFLcRIZcauo21Dnrz81Mppi3pNcJMSnOzsV8clJUCEoCR5RboKKrQQkzmNZsNYop/DP6Pb0rQBe4BNhYE1XbYlSZ7LaXVI8VdhrsNIAudr24HWpSNSSNtxbcXrCO0Y7iHUOLDqQQFbcHkWO3SiImm4fKiNSpLjSVR4y/DccQrg2BvbtuBybH80ixY72I4g2w0NT0hwJA9Sa6fh2YHIGHoiGA29YqLi/F0hdySTbT1vxxVKLPyo3MOMQ74fOjhSlRnEbL2NwkcX6Cx+KQRlhYRDlQw2VJWthRZcuATqTtv143txY7bUt5wisy8HxRMdFncLkoK9O2tKkjzEcXuo79hVb6bzXH8yYgp5RK5LRdV6q1g/5VbwuQh76gY9hz+7M9K2iO5Skf21VSHMjsaKnnRVwpr8V372XFNq9wbUVxw8eor0G9FFAZiFlay2yhTrg5CenueBUCcuRJMkvYlPGH+Ir7UI1i/cq2Av7UUUfUcF5TzR1wDJ+H4LKTMjPyHXdBTdahpIPoBSrmOC7l7OsTFwsqjSZAcJ6pJ2Wn8G4/5RRWpkSZty2h7ODT6vLGlJ1rN7alJ2KR6kWP5ooorPTaZplKH//Z" alt="Kaitlyn B."><div><div class="review-name">Kaitlyn B.</div><div class="stars">★★★★★</div></div></div><div class="review-text">"Finally an app that actually works. Found out 3 people unfollowed me the same day I posted."</div></div>
+      <div class="review-card"><div class="review-head"><img class="review-pfp" loading="lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAA4ADgDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAMBBAUCBgf/xAAqEAACAgEEAQQABgMAAAAAAAABAgARAwQSITEFEyJBUSNCYXGx4TKRwf/EABgBAAMBAQAAAAAAAAAAAAAAAAACAwEE/8QAHBEBAQEBAAIDAAAAAAAAAAAAAAERAgMhEiJB/9oADAMBAAIRAxEAPwDAx6ollIZgLDUW7/SZ/kCwTEpbKT7i266bqqj1+Afpf+ROs3Pix2BSFhdftJzmbptuM+pFRu2RtlClVCozbIqALqE7IhBjaR+WUMtWO/8AURqQPSUIx2lzwezNH1cZSseJ7Bok0w/X9pn6g7ceMkE/5ScumVdk5KRyYnyIcoYgD8tdCwJxqg64jsUknjiNrCiJG2UfcG+buaeJGKLuS2rkH4mggiEYwskVRHBqENDYQGqBA9x+f6nIGxsPsTJwwKnmr+eKnpceXwx3C9RySGZCSXF98fPzMt18a2b2vqG9zUwQlq+v5kPlZ+KYyAjZXKoiYwxXgE12PuWzpduRg1GvrkS0+DSenlGBclrQbcpFCr54qzMbW23kDje9hxGhfHX9Sk+xb6WF8UAQ3q381tidTpsuPrGxA/MOpSw7l1GTi1VXrnrg8y3gyMdRptjttYqCL7EbC7SMiszsQjbeAT1RhLPkVw4NUyqgAIuhwBcJmUz6SPMUr05PPw3XE8bg8lWoU7iG/Ern7aEJyeLiYpuVDeQ3rr1LnbkyITd9AVcrthw585dlDFeFIP2IQnVzMmRPr3UjR6dcqOuOmU2DZ7nOLQ4MeVcyhgwa++OLqEJQil5krvU2N44r5ru/5hCEVr//2Q==" alt="Devontae M."><div><div class="review-name">Devontae M.</div><div class="stars">★★★★★</div></div></div><div class="review-text">"The ghost follower feature is insane. Cleaned up over 200 dead accounts in 10 minutes."</div></div>
+      <div class="review-card"><div class="review-head"><img class="review-pfp" loading="lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAA4ADgDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAQDBQYCB//EAC4QAAIBAwMCBQMEAwEAAAAAAAECAwAEEQUSIRMxBhRRYXFBgZEiIzKhQnLB4f/EABgBAQEBAQEAAAAAAAAAAAAAAAIBAAME/8QAIBEAAgICAgIDAAAAAAAAAAAAAAECERIhMUEDIjJRYf/aAAwDAQACEQMRAD8A3t3qNtZyqlw5QsMg7SR/VTwzxTxLLE4dG7EfWqrWkgkniErFSV4prS40i09QDuVSxyPmje6LRU+LpgbKSHy7Sh9gLDnYNx5I9OKq9NgiggaKFNiK+APXtzSWtzy2sc0oJbqKUAb5zn7VmLbXtTs5cibqKTkrIMg/9o9l6PXLAhWC/XaKdXOCAQOT3qg0DUo9WtYrqMbCRtdCf4sO4q1lvbOKQpNKgcnhSMn0oePmhS+zO68kHWuPNxpLlgIwy55Pb4oqLxdIYpkFs0YMzqm8nhDz6fFFaS2RMY1fUI7ySEwhjsGDkV3Z62LSzMHS3uGOP1dwa86l1e9bvcS9+4OK6027vbvVLeKOSRmaQADccferk+Qrbovte1SFCLWZcuhw4U9jgVnpPLTcxvg+hqXxR0xqsyxyb23ZY+9URLKc1oq1Z0m6dG/8HmVLC7SPB/cBBz2OP/KXvnuFZNzElge/6cHPPzSfhK9McV2OptLEfX2pPxBeSm6CO7MvTUjd35zQxeRG9FnqN43krJiqydFjuyeTx378UVQWNlc324woGUHBZuF+KKTSfIF+CcjkjuRzTugXLW2omSIZlKMqAepFaZPD2mL/ACid/wDaQ8/ipZLa2sLZ5LW2jjcDAKJlu/rTa9WLx/JGM1OOSG7dZ1/e/wAxnPOKiaM+TSbtliv371zfLMl5Kkj5dWOc+tdvORpywsCdslbpGe2xjSpxCGySAzfSra406W/liuLW5hL7MBXGO3HvzzSvhmLT3NxNqEjbIVDrEG29QfX8envWqtLi11LUcJBF0w2SFULx7YqXsqTaMrHBf6dIfMoIRId3cYO30x8/3RTHiBgJ2t3mWTosQCO59v6oquJFPFVRprZupCj+ort41dSrDIIoophMm3h7ULvUJII4hISjGKTONxHJJ9zz9yKrZYzDYOGgkDEgHI7Ed/tnNFFBnRbtjehxgbkltY3ZuUeSPO0fXvU097NoUyNZyKWlO9gwyPjH5/NFFFP2FJJQKgXJur55ZQpaVyzADjJ9BRRRXQ85/9k=" alt="Priya K."><div><div class="review-name">Priya K.</div><div class="stars">★★★★★</div></div></div><div class="review-text">"My ex unfollowed me and Lurke caught it in real time. It hurts but I needed to know."</div></div>
+      <div class="review-card"><div class="review-head"><img class="review-pfp" loading="lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAA4ADgDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAUCAwQBBv/EACwQAAICAQIEBgEEAwAAAAAAAAECAAMRBCEFEjFBEyIyUWFxwRQzQoFyodH/xAAXAQEBAQEAAAAAAAAAAAAAAAABAwAC/8QAGREBAQEBAQEAAAAAAAAAAAAAAAERAhIx/9oADAMBAAIRAxEAPwDySftL9SLtyDm6gHf6k19A+pNQu4YZB7ScVqKVhn2AIIyDH3CAFVGGMh8RFomVeVTtktj/AJHXDLAtDk9nMpzU+o9LFuofmsVvC9RxnPURiDlQR3GYnWxn1VqlxyV7jb3zEK9Xu6ZHc5+YSOqsw6fB6HtCBpAo8g+pzOAfzAbCQtJ5PL7ycVvxyg70/wCZ/M36bVpTpra3OHLHG0W0HBo+2/M0aTSLq18VnKliSeX+M61xmvTpxis01rWQzBQG+4pq1Dnil7DJXP8AUUMr6W+tecMx7Dt9xjprGqu1C7EkgZGD2946Mwwu81bWMC5TfA77doTMGst0b8zlvKpwPrtCALBjG8i7ALuCd4EySOtZHNWGOPLnsZzFb8X8K4f+prR7GKIudwNzN6cPXSr4dDswzklusv0OTpKmb1HJP9mWnrKZqW2Vjq0nh2i5kB3w+BkhcH/Ut0HgHU6zkUBPEXAHQeWa0c1nIPaLkrWnieo5OlihyPY5hmNuucXIrZa6a/WObZsHI9sQmm2uu9OS1A6/PaE2thB/HaBKgcznCjqYQnEVpxXrE8BQikDG2TJjVjG6nPxCE3ut4it9RzMCThRvj3kablv4hagPSoBSeuc5xCEZbR1zIvDEbEwhCLh//9k=" alt="Noah F."><div><div class="review-name">Noah F.</div><div class="stars">★★★★★</div></div></div><div class="review-text">"Super clean design, no ads, works exactly as advertised. Been using it every morning."</div></div>
+      <div class="review-card"><div class="review-head"><img class="review-pfp" loading="lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAA4ADgDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAQCAwUGBwH/xAAvEAACAQMDAgUCBQUAAAAAAAABAgMABBESITEFIhNBUYGRBmEUI1KhsTNCU2Nx/8QAGQEAAgMBAAAAAAAAAAAAAAAAAwQAAQIF/8QAHxEAAwACAgMBAQAAAAAAAAAAAAECAxESIQQxQSIy/9oADAMBAAIRAxEAPwBON/B7l1BwCA2cY2xU5b9rmWQRTOqHBdA2BnAyfc0wlr0eAa5Lia9b0iTA+SaJLu0UAQ9Nh055kfJ/asTCLrK9mZFEsEmuFzqJHavG242q+4ivZ7j8fcIzIpUtlcDnFXt1aZO2JY4B/qjA/enLRV6hYTRyrNJM7DEz5ITBB2PANS50tszNcmZXXLKaOxv5RGVRpdS49ODXIIdRB8+DXqvW544LdreVAyt2aRnLbDFeZXNu1rdlZAFbPcg/tPpUivjDZJ9NDvTAkV9CZE1oWwV1Yz7+VFRtTm8twN8sDRV+wTNd5fGwy5xjBA4FSQhQQAN6jFGzLojG38UzH06TTqcEDO2TsaPrQpVoUdiTkHJFalhPdJ0m78NWIBGnA49ST8VO06XFIxLkqfJW2z6+1KsZrm8Wzsw5gTONGwI8yaFlfWg/jLlXL4i438tzaEyyr29xd+EwMDbzrib1w1xKVJPdnJ55rvJbJOn2VxfXDJHF/jAyGGePfGPevPnWSXxJygCuxPbwN87UGPbHMnpI0ujKZ7+2AGdJOfiirvp/CTC4R18RT/TO2oYooqehW1bf5NuG8MRCqsUeOSF1H/n2pv8AGrOqqxOw3DbgVVIuGMhKyyny2GRxS6Rrly0MmDt28j2zRmhBo0bq8WHpbsBhpnManjYc0v0a6SwaWacEB48Kfk/yBU0iguDAJhKUiBCrwMnc5pm6so7+yuoUwuiPIcEZU+VLue22O48spTEowPqjr0XVPDtbYsLeM5YnbJ4A+M1itNGIGCgABSoB8yazwH06SSMHOPvU7OE3F5DH+tsVFKlDDp0ztugfTsLdL8fAknlB0k8IKK6P6cgNr0SOI7sM5+eKKXd1sZmJaMKaF0XUwz6ldvg19iEokRu+b9JJ4+1FFdF9nEovMLwQFUjDSHIyWyD96u6XbgZjCNrILOQcgHB3oooF1pMP48JtM4TqdjJbXMqaSwOkqRwc7059JWLz9TSQgAQ5bf18v5oorHwca7PSelkfmxe9FFFAyf0bxt8T/9k=" alt="Jayda R."><div><div class="review-name">Jayda R.</div><div class="stars">★★★★★</div></div></div><div class="review-text">"The 'not following back' list was eye-opening. Thought we were mutuals. We were not."</div></div>
+      <div class="review-card"><div class="review-head"><img class="review-pfp" loading="lazy" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAA4ADgDASIAAhEBAxEB/8QAGgAAAwADAQAAAAAAAAAAAAAAAAUGAQIEA//EADIQAAIBAwIDBgUCBwAAAAAAAAECAwAEERIhBTFBBhVRcZGhExQiYYFS4SMyM3KSscH/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAcEQEAAgMBAQEAAAAAAAAAAAAAARECElEhEzH/2gAMAwEAAhEDEQA/AOUysTzo0yc9L48qu+7bcHaJV8gKO74vD3rP1hdJQhDDxrXWRzq97utzzjQ+YzXnPbWlrC00wt4okGWdhgAU+sJohv4jH6VY/isiG4PKN/Sqmy43wS9u/lra8t2l6DSQG8iedd7XFqhxrTzCk03nhrHUStrdNyhf0oq1N3agZ+KnloNFN8uFR0rHFr0c5EP2KCsni92RjMY8lrgOfD3rIUkZGPWpULcuvvG8J/re1JO06vxG0i+ZuJcIxACcjnx9KZBH22H+VcHHJ5bOxBCKDK2kFt9sZNK4R+pPgllJHxu3OsD4bkkj7D/tXBlk/UPSpCWNbxBJC+iXk46N+9Muz0lw7zwu7OiAYyc4OaY5TK54xB0ZpPEelFaujfporVsUZpeW7jDaMg7Z5fk4rRp7dm/nhBBG4J3/ABSQWyjIyQv92MV6iEuMLrwOitjIqeqdrcQAl/mFUt985qb7YFZFtmhkUouoFQc74517mFRGFBbbpk496V8ckAWCPJOxO55Cp6sUnZXeKTRE5U43xVl2LVIOEySySAPPIckqWIA2HvmotRrkc+O1VnBFXuqLQ7Z+rK6iN81otSM1uRpedR9yP2opTojWMl5HywBxvn/dFT1GzNo55LeBwcVox1nO+c742FFFUbIq68NIOuwapvtPIRfLobIMY6ctzRRQJopPp+leXPJql7OzF7OdGOCHBUdNxRRVDVoXyW+EGVT0GAaKKKg//9k=" alt="Chris V."><div><div class="review-name">Chris V.</div><div class="stars">★★★★★</div></div></div><div class="review-text">"Lurke told me someone unfollowed me before I even checked my phone. It's that fast."</div></div>
+    </div>
+  </div>
+  <div class="carousel-controls">
+    <button class="c-btn" onclick="cNav(-1)">&#8592;</button>
+    <div class="c-dots" id="c-dots"></div>
+    <button class="c-pause" id="c-pause" onclick="cTogglePause()">&#9646;&#9646;</button>
+    <button class="c-btn" onclick="cNav(1)">&#8594;</button>
   </div>
 </div>
 
-<style>
-  details[open] summary svg { transform: rotate(180deg); }
-</style>
-<!-- FAQ -->
-<section style="background:#ffffff; padding:60px 24px; max-width:1000px; margin:0 auto;">
-  <p style="font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#e0529a; margin-bottom:14px;">FAQ</p>
-  <h2 style="font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(30px,5vw,48px); text-transform:uppercase; line-height:1; letter-spacing:-0.01em; margin-bottom:36px; color:#1a1a1a;">Questions answered</h2>
-
-  <div style="display:flex; flex-direction:column;">
-
-    <details style="border-bottom:1px solid #e8e8e8; padding:20px 0;">
-      <summary style="font-size:15px; font-weight:700; color:#1a1a1a; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:12px; list-style:none; line-height:1.4;">
-        Do I need to give Lurke my Instagram password?
-        <svg style="flex-shrink:0; width:20px; height:20px; color:#aaa; transition:transform 0.2s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-      </summary>
-      <p style="font-size:14px; color:#444444; line-height:1.75; padding-top:12px; margin:0;">No. Lurke uses Instagram's official secure login (OAuth). We never see or store your password. Your credentials stay between you and Instagram.</p>
-    </details>
-
-    <details style="border-bottom:1px solid #e8e8e8; padding:20px 0;">
-      <summary style="font-size:15px; font-weight:700; color:#1a1a1a; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:12px; list-style:none; line-height:1.4;">
-        How fast does Lurke detect unfollowers?
-        <svg style="flex-shrink:0; width:20px; height:20px; color:#aaa; transition:transform 0.2s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-      </summary>
-      <p style="font-size:14px; color:#444444; line-height:1.75; padding-top:12px; margin:0;">Lurke's engine checks for changes continuously and sends you a push notification the moment someone unfollows you or a new follower appears.</p>
-    </details>
-
-    <details style="border-bottom:1px solid #e8e8e8; padding:20px 0;">
-      <summary style="font-size:15px; font-weight:700; color:#1a1a1a; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:12px; list-style:none; line-height:1.4;">
-        Will Instagram know I'm using Lurke?
-        <svg style="flex-shrink:0; width:20px; height:20px; color:#aaa; transition:transform 0.2s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-      </summary>
-      <p style="font-size:14px; color:#444444; line-height:1.75; padding-top:12px; margin:0;">Lurke only accesses your own account data through your logged-in session. It doesn't interact with other accounts, post on your behalf, or leave any trace.</p>
-    </details>
-
-    <details style="border-bottom:1px solid #e8e8e8; padding:20px 0;">
-      <summary style="font-size:15px; font-weight:700; color:#1a1a1a; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:12px; list-style:none; line-height:1.4;">
-        Is Lurke free?
-        <svg style="flex-shrink:0; width:20px; height:20px; color:#aaa; transition:transform 0.2s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-      </summary>
-      <p style="font-size:14px; color:#444444; line-height:1.75; padding-top:12px; margin:0;">Yes, Lurke is free to download and use. A Lurke Pro subscription unlocks expanded features like full follower/following list visibility and advanced growth analytics.</p>
-    </details>
-
-    <details style="border-bottom:1px solid #e8e8e8; padding:20px 0;">
-      <summary style="font-size:15px; font-weight:700; color:#1a1a1a; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:12px; list-style:none; line-height:1.4;">
-        Is Lurke available on Android?
-        <svg style="flex-shrink:0; width:20px; height:20px; color:#aaa; transition:transform 0.2s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-      </summary>
-      <p style="font-size:14px; color:#444444; line-height:1.75; padding-top:12px; margin:0;">Yes! Lurke is available on both the App Store for iOS and Google Play for Android. <a href="https://play.google.com/store/apps/details?id=com.lurke.app" target="_blank" style="color:#e0529a; font-weight:600;">Download on Google Play</a>.</p>
-    </details>
-
-  </div>
-</section>
+<div class="section">
+  <span class="eyebrow">FAQ</span>
+  <h2>Questions answered</h2>
+  <details class="faq-item"><summary class="faq-q">Do I need to give Lurke my Instagram password?<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></summary><p class="faq-a">No. Lurke uses Instagram's official secure login (OAuth). We never see or store your password. Your credentials stay between you and Instagram.</p></details>
+  <details class="faq-item"><summary class="faq-q">How fast does Lurke detect unfollowers?<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></summary><p class="faq-a">Lurke's engine checks for changes continuously and sends you a push notification the moment someone unfollows you or a new follower appears.</p></details>
+  <details class="faq-item"><summary class="faq-q">Will Instagram know I'm using Lurke?<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></summary><p class="faq-a">Lurke only accesses your own account data through your logged-in session. It doesn't interact with other accounts, post on your behalf, or leave any trace.</p></details>
+  <details class="faq-item"><summary class="faq-q">Is Lurke free?<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></summary><p class="faq-a">Yes, Lurke is free to download and use. A Lurke Pro subscription unlocks expanded features like full follower/following list visibility and advanced growth analytics.</p></details>
+  <details class="faq-item"><summary class="faq-q">Is Lurke available on Android?<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></summary><p class="faq-a">Yes! Lurke is available on both the App Store for iOS and Google Play for Android. <a href="https://play.google.com/store/apps/details?id=com.lurke.app" target="_blank" style="color:#e0529a;font-weight:600;">Download on Google Play</a>.</p></details>
 </div>
 
-<!-- FINAL CTA -->
-<section class="cta-section">
-  <div class="cta-glow"></div>
+<div class="cta">
   <h2>Stop wondering.<br><span>Start knowing.</span></h2>
   <p>Download Lurke free on the App Store.</p>
-  <a href="https://apps.apple.com/us/app/lurke-unfollowers-tracker/id6759174957" class="btn-primary" target="_blank" style="position:relative;z-index:1;margin:0 auto;">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+  <a href="https://apps.apple.com/us/app/lurke-unfollowers-tracker/id6759174957" class="cta-btn" target="_blank">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
     Download on the App Store
   </a>
   <div class="cta-badges">
-    <div class="badge-item"><span class="badge-check"></span>Free to download</div>
-    <div class="badge-item"><span class="badge-check"></span>Password never stored</div>
-    <div class="badge-item"><span class="badge-check"></span>iOS &amp; Android</div>
-    <div class="badge-item"><span class="badge-check"></span>Password never stored</div>
+    <div class="cbadge"><span class="cbadge-check">✓</span>Free to download</div>
+    <div class="cbadge"><span class="cbadge-check">✓</span>iOS &amp; Android</div>
+    <div class="cbadge"><span class="cbadge-check">✓</span>Password never stored</div>
   </div>
-</section>
+</div>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">LUR<span>KE</span></div>
-  <div class="footer-links">
+  <div class="foot-logo">LUR<span>KE</span></div>
+  <div class="foot-links">
     <a href="https://apps.apple.com/us/app/lurke-unfollowers-tracker/id6759174957" target="_blank">App Store</a>
     <a href="https://play.google.com/store/apps/details?id=com.lurke.app" target="_blank">Google Play</a>
   </div>
-  <div class="footer-copy">2026 Lurke. Not affiliated with Meta or Instagram.</div>
+  <div class="foot-copy">2026 Lurke. Not affiliated with Meta or Instagram.</div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 <script>
-  const DEFAULT_PFP_SRC = "";
+// ── SEARCH ────────────────────────────────────────────────────
+document.getElementById('search-input').addEventListener('keydown', e => { if(e.key==='Enter') startSearch(); });
 
-  // Allow Enter key to trigger search
-  document.getElementById('search-input').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') startSearch();
+function isMobile() {
+  return /Android|iPhone|iPad|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+}
+
+function startSearch() {
+  const raw = document.getElementById('search-input').value.trim().replace(/^@/,'');
+  if (!raw) { document.getElementById('search-input').focus(); return; }
+  if (!isMobile()) { showQR(raw); return; }
+  openAnalyzing(raw.toLowerCase());
+}
+
+// Auto-trigger from QR scan
+(function() {
+  const u = new URLSearchParams(window.location.search).get('u');
+  if (u && isMobile()) { document.getElementById('search-input').value = u; setTimeout(() => openAnalyzing(u.toLowerCase()), 300); }
+})();
+
+// ── ANALYZING ─────────────────────────────────────────────────
+function openAnalyzing(username) {
+  document.getElementById('modal-user').textContent = '@' + username;
+  document.getElementById('screen-analyzing').style.display = 'block';
+  document.getElementById('screen-results').style.display = 'none';
+  document.getElementById('pbar').style.width = '0%';
+  document.getElementById('pct').textContent = '0%';
+  for (let i=0;i<5;i++) {
+    document.getElementById('sr-'+i).className = 'step pending';
+    const c = document.getElementById('sc-'+i);
+    c.className = 'step-check'; c.textContent = '';
+  }
+  document.getElementById('analyze-overlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  runSteps(username);
+}
+
+function setProgress(v) {
+  document.getElementById('pbar').style.width = v+'%';
+  document.getElementById('pct').textContent = v+'%';
+}
+
+function runSteps(username) {
+  const timings = [[0,800],[850,1700],[1750,2700],[2750,3800],[3850,4800]];
+  const pcts = [20,40,65,85,100];
+  timings.forEach(([a,b],i) => {
+    setTimeout(() => {
+      document.getElementById('sr-'+i).className = 'step active';
+    }, a);
+    setTimeout(() => {
+      setProgress(pcts[i]);
+      const c = document.getElementById('sc-'+i);
+      c.className = 'step-check done'; c.textContent = '✓';
+    }, b);
+  });
+  setTimeout(() => showResults(username), 5200);
+}
+
+function showResults(username) {
+  document.getElementById('screen-analyzing').style.display = 'none';
+  document.getElementById('screen-results').style.display = 'block';
+  document.getElementById('results-user').textContent = '@' + username;
+}
+
+function closeModal() {
+  document.getElementById('analyze-overlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// ── QR CODE ───────────────────────────────────────────────────
+let qrDone = false;
+function showQR(username) {
+  const url = window.location.origin + window.location.pathname + '?u=' + encodeURIComponent(username);
+  document.getElementById('qr-overlay').classList.add('show');
+  if (!qrDone) {
+    setTimeout(() => {
+      try {
+        new QRCode(document.getElementById('qr-canvas'), {
+          text: url, width:160, height:160,
+          colorDark:'#1a1a1a', colorLight:'#f8f8f8',
+          correctLevel: QRCode.CorrectLevel.M
+        });
+        qrDone = true;
+      } catch(e) {}
+    }, 500);
+  }
+}
+
+// ── CAROUSEL ──────────────────────────────────────────────────
+(function() {
+  const track = document.getElementById('c-track');
+  const inner = document.getElementById('c-inner');
+  const dotsWrap = document.getElementById('c-dots');
+  const pauseBtn = document.getElementById('c-pause');
+  const origCards = Array.from(inner.querySelectorAll('.review-card'));
+  const total = origCards.length;
+  inner.insertBefore(origCards[total-1].cloneNode(true), inner.firstChild);
+  inner.appendChild(origCards[0].cloneNode(true));
+  const allCards = inner.querySelectorAll('.review-card');
+  const gap = 16;
+  let CARD_W = allCards[0].offsetWidth + gap;
+  let current = 1;
+  let paused = false;
+  let timer = null;
+
+  for (let i=0;i<total;i++) {
+    const d = document.createElement('button');
+    d.className = 'c-dot' + (i===0?' active':'');
+    d.onclick = () => goTo(i+1);
+    dotsWrap.appendChild(d);
+  }
+
+  function getOffset() { return (Math.min(track.offsetWidth,960)/2) - (allCards[0].offsetWidth/2); }
+
+  function goTo(idx, animate) {
+    CARD_W = allCards[0].offsetWidth + gap;
+    if (animate===false) inner.classList.add('no-t');
+    else inner.classList.remove('no-t');
+    current = idx;
+    inner.style.transform = 'translateX(' + (getOffset() - current*CARD_W) + 'px)';
+    const di = current-1 < 0 ? total-1 : current-1 >= total ? 0 : current-1;
+    dotsWrap.querySelectorAll('.c-dot').forEach((d,i) => d.classList.toggle('active', i===di));
+    allCards.forEach((c,i) => c.classList.toggle('active', i===current));
+  }
+
+  inner.addEventListener('transitionend', () => {
+    if (current===0) { inner.classList.add('no-t'); current=total; inner.style.transform='translateX('+(getOffset()-current*CARD_W)+'px)'; requestAnimationFrame(()=>inner.classList.remove('no-t')); }
+    else if (current===total+1) { inner.classList.add('no-t'); current=1; inner.style.transform='translateX('+(getOffset()-current*CARD_W)+'px)'; requestAnimationFrame(()=>inner.classList.remove('no-t')); }
+    allCards.forEach((c,i)=>c.classList.toggle('active',i===current));
   });
 
-  // Auto-trigger search if ?u= param present (from QR scan)
-  (function() {
-    const params = new URLSearchParams(window.location.search);
-    const u = params.get('u');
-    if (u && isMobile()) {
-      document.getElementById('search-input').value = u;
-      setTimeout(() => openAnalyzing(u.toLowerCase()), 300);
-    }
-  })();
+  function startTimer() { clearInterval(timer); timer = setInterval(()=>goTo(current+1), 5000); }
+  window.cNav = dir => { goTo(current+dir); if(!paused) startTimer(); };
+  window.cTogglePause = () => {
+    paused = !paused;
+    pauseBtn.innerHTML = paused ? '&#9654;' : '&#9646;&#9646;';
+    if (paused) clearInterval(timer); else startTimer();
+  };
 
-  // Generate QR code once
-  let qrGenerated = false;
-  function showQR(username) {
-    const overlay = document.getElementById('qr-overlay');
-    overlay.style.display = 'flex';
-    if (!qrGenerated) {
-      const url = window.location.origin + window.location.pathname + '?u=' + encodeURIComponent(username);
-      new QRCode(document.getElementById('qr-canvas'), {
-        text: url,
-        width: 160,
-        height: 160,
-        colorDark: '#1a1a1a',
-        colorLight: '#f8f8f8',
-        correctLevel: QRCode.CorrectLevel.M
-      });
-      qrGenerated = true;
-    }
-  }
+  track.addEventListener('mouseenter', ()=>{ if(!paused) clearInterval(timer); });
+  track.addEventListener('mouseleave', ()=>{ if(!paused) startTimer(); });
 
-  function isMobile() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
-  }
+  let sx=0, drag=false;
+  track.addEventListener('pointerdown', e=>{ sx=e.clientX; drag=true; inner.classList.add('no-t'); });
+  track.addEventListener('pointermove', e=>{ if(!drag) return; inner.style.transform='translateX('+(getOffset()-current*CARD_W+(e.clientX-sx))+'px)'; });
+  track.addEventListener('pointerup', e=>{ if(!drag) return; drag=false; const dx=e.clientX-sx; goTo(Math.abs(dx)>50?(dx<0?current+1:current-1):current); if(!paused) startTimer(); });
+  track.addEventListener('pointercancel', ()=>{ drag=false; goTo(current); });
 
-  function startSearch() {
-    const raw = document.getElementById('search-input').value.trim().replace(/^@/, '');
-    if (!raw) {
-      document.getElementById('search-input').focus();
-      return;
-    }
-    if (!isMobile()) {
-      showQR(raw);
-      return;
-    }
-    const username = raw.toLowerCase();
-    openAnalyzing(username);
-  }
-
-  function openAnalyzing(username) {
-    // Reset analyzing screen
-    document.getElementById('screen-analyzing').style.display = 'block';
-    document.getElementById('screen-results').style.display = 'none';
-    document.getElementById('modal-username').textContent = '@' + username;
-    document.getElementById('progress-bar').style.width = '0%';
-    document.getElementById('progress-pct').textContent = '0%';
-
-    // Reset steps
-    for (let i = 0; i < 5; i++) {
-      const row = document.getElementById('sr-' + i);
-      const check = document.getElementById('sc-' + i);
-      row.classList.remove('active');
-      row.classList.add('pending');
-      check.classList.remove('done', 'spinning');
-    }
-
-    // Use Instagram default profile picture
-    const img = document.getElementById('modal-avatar');
-    const fallback = document.getElementById('modal-avatar-fallback');
-    img.src = DEFAULT_PFP_SRC;
-    img.style.display = 'block';
-    fallback.classList.add('hidden');
-
-
-    document.getElementById('modal-overlay').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-
-    runSteps(username);
-  }
-
-  function runSteps(username) {
-    // Step timings in ms: [activate, complete]
-    const steps = [
-      [0, 900],
-      [950, 1800],
-      [1850, 2800],
-      [2850, 4000],
-      [4050, 5200],
-    ];
-    const targets = [20, 40, 65, 85, 100];
-
-    steps.forEach(([activateAt, completeAt], i) => {
-      setTimeout(() => {
-        const row = document.getElementById('sr-' + i);
-        const check = document.getElementById('sc-' + i);
-        row.classList.remove('pending');
-        row.classList.add('active');
-        check.classList.add('spinning');
-        animateProgress(targets[i] - (i === 0 ? 20 : 20), targets[i]);
-      }, activateAt);
-
-      setTimeout(() => {
-        const check = document.getElementById('sc-' + i);
-        check.classList.remove('spinning');
-        check.classList.add('done');
-        setProgress(targets[i]);
-      }, completeAt);
-    });
-
-    // Show results after all done
-    setTimeout(() => showResults(username), 5600);
-  }
-
-  function animateProgress(from, to) {
-    const bar = document.getElementById('progress-bar');
-    const pct = document.getElementById('progress-pct');
-    let current = from;
-    const interval = setInterval(() => {
-      current = Math.min(current + 1, to);
-      bar.style.width = current + '%';
-      pct.textContent = current + '%';
-      if (current >= to) clearInterval(interval);
-    }, 20);
-  }
-
-  function setProgress(val) {
-    document.getElementById('progress-bar').style.width = val + '%';
-    document.getElementById('progress-pct').textContent = val + '%';
-  }
-
-  function usernameGradient(username) {
-    // Hash the username to pick consistent colors
-    let hash = 0;
-    for (let i = 0; i < username.length; i++) hash = username.charCodeAt(i) + ((hash << 5) - hash);
-    const palettes = [
-      ['#9B6FFF','#FF6FD8'], ['#4ADE80','#06B6D4'], ['#F87171','#FB923C'],
-      ['#FBBF24','#F87171'], ['#06B6D4','#9B6FFF'], ['#FF6FD8','#FBBF24'],
-      ['#4ADE80','#9B6FFF'], ['#F87171','#9B6FFF'],
-    ];
-    const pair = palettes[Math.abs(hash) % palettes.length];
-    const angle = 135 + (Math.abs(hash >> 4) % 90);
-    return `linear-gradient(${angle}deg, ${pair[0]}, ${pair[1]})`;
-  }
-
-  function showResults(username) {
-    document.getElementById('screen-analyzing').style.display = 'none';
-    document.getElementById('screen-results').style.display = 'block';
-    document.getElementById('results-username').textContent = '@' + username;
-
-    const destImg = document.getElementById('results-avatar');
-    const destFallback = document.getElementById('results-avatar-fallback');
-    destImg.src = DEFAULT_PFP_SRC;
-    destImg.style.display = 'block';
-    destFallback.classList.add('hidden');
-  }
-
-  function closeModalOutside(e) {
-    if (e.target === document.getElementById('modal-overlay')) {
-      document.getElementById('modal-overlay').style.display = 'none';
-      document.body.style.overflow = '';
-    }
-  }
-
-  function closeResults() {
-    document.getElementById('modal-overlay').style.display = 'none';
-    document.body.style.overflow = '';
-    document.getElementById('search-input').value = '';
-    document.getElementById('search-input').focus();
-  }
-
-  // ── REVIEWS CAROUSEL (infinite loop) ─────────────────────────
-  (function() {
-    const track = document.getElementById('reviews-track');
-    const inner = document.getElementById('reviews-inner');
-    const dotsWrap = document.getElementById('reviews-dots');
-    const pauseBtn = document.getElementById('rev-pause');
-
-    // Clone cards for infinite loop: [clone of last] + [originals] + [clone of first]
-    const origCards = Array.from(inner.querySelectorAll('.review-card'));
-    const total = origCards.length;
-
-    // Prepend clone of last card, append clone of first
-    const cloneLast = origCards[total - 1].cloneNode(true);
-    const cloneFirst = origCards[0].cloneNode(true);
-    inner.insertBefore(cloneLast, inner.firstChild);
-    inner.appendChild(cloneFirst);
-
-    const allCards = inner.querySelectorAll('.review-card');
-
-    // Calculate card width after clones added
-    const firstCard = allCards[0];
-    const cardStyle = getComputedStyle(inner);
-    const gap = parseInt(cardStyle.gap) || 16;
-    const CARD_W = firstCard.offsetWidth + gap;
-
-    // Start at index 1 (first real card, after the prepended clone)
-    let current = 1;
-    let paused = false;
-    let autoTimer = null;
-    let isTransitioning = false;
-
-    // Build dots (one per original card)
-    for (let i = 0; i < total; i++) {
-      const d = document.createElement('button');
-      d.className = 'reviews-dot' + (i === 0 ? ' active' : '');
-      d.setAttribute('aria-label', 'Go to review ' + (i + 1));
-      d.onclick = () => goTo(i + 1);
-      dotsWrap.appendChild(d);
-    }
-
-    function updateDots() {
-      // Map current index (1-based with clones) back to dot index (0-based)
-      let dotIdx = current - 1;
-      if (dotIdx < 0) dotIdx = total - 1;
-      if (dotIdx >= total) dotIdx = 0;
-      dotsWrap.querySelectorAll('.reviews-dot').forEach((d, i) => {
-        d.classList.toggle('active', i === dotIdx);
-      });
-    }
-
-    function getOffset() {
-      // Center active card, capped so it never goes past left edge
-      const trackW = Math.min(track.offsetWidth, 1000);
-      return (trackW / 2) - (firstCard.offsetWidth / 2);
-    }
-
-    function goTo(idx, animate) {
-      if (animate === false) inner.classList.add('no-transition');
-      else inner.classList.remove('no-transition');
-      current = idx;
-      const offset = getOffset();
-      inner.style.transform = 'translateX(' + (offset - current * CARD_W) + 'px)';
-      updateDots();
-      allCards.forEach((c, i) => c.classList.toggle('active-card', i === current));
-    }
-
-    // After transition ends, silently jump if on a clone
-    inner.addEventListener('transitionend', () => {
-      if (current === 0) {
-        inner.style.transition = 'none';
-        current = total;
-        const _off1 = (Math.min(track.offsetWidth, 1000) / 2) - (firstCard.offsetWidth / 2);
-        inner.style.transform = 'translateX(' + (_off1 - current * CARD_W) + 'px)';
-        updateDots();
-        allCards.forEach((c, i) => c.classList.toggle('active-card', i === current));
-        requestAnimationFrame(() => {
-          inner.style.transition = '';
-        });
-      } else if (current === total + 1) {
-        inner.style.transition = 'none';
-        current = 1;
-        const _off2 = (Math.min(track.offsetWidth, 1000) / 2) - (firstCard.offsetWidth / 2);
-        inner.style.transform = 'translateX(' + (_off2 - current * CARD_W) + 'px)';
-        updateDots();
-        requestAnimationFrame(() => {
-          inner.style.transition = '';
-        });
-      }
-      isTransitioning = false;
-    });
-
-    function startAuto() {
-      clearInterval(autoTimer);
-      autoTimer = setInterval(() => {
-        goTo(current + 1);
-      }, 5000);
-    }
-
-    window.reviewsNav = function(dir) {
-      goTo(current + dir);
-      if (!paused) startAuto();
-    };
-
-    window.reviewsTogglePause = function() {
-      paused = !paused;
-      pauseBtn.innerHTML = paused ? '&#9654;' : '&#9646;&#9646;';
-      pauseBtn.title = paused ? 'Resume autoplay' : 'Pause autoplay';
-      if (paused) clearInterval(autoTimer);
-      else startAuto();
-    };
-
-    // Pause on hover
-    track.addEventListener('mouseenter', () => { if (!paused) clearInterval(autoTimer); });
-    track.addEventListener('mouseleave', () => { if (!paused) startAuto(); });
-
-    // Touch / drag swipe
-    let startX = 0, isDragging = false;
-    track.addEventListener('pointerdown', e => { startX = e.clientX; isDragging = true; inner.classList.add('no-transition'); });
-    track.addEventListener('pointermove', e => {
-      if (!isDragging) return;
-      const dx = e.clientX - startX;
-      const offset = (track.offsetWidth / 2) - (firstCard.offsetWidth / 2);
-      inner.style.transform = 'translateX(' + (offset - current * CARD_W + dx) + 'px)';
-    });
-    track.addEventListener('pointerup', e => {
-      if (!isDragging) return;
-      isDragging = false;
-      const dx = e.clientX - startX;
-      goTo(Math.abs(dx) > 50 ? (dx < 0 ? current + 1 : current - 1) : current);
-      if (!paused) startAuto();
-    });
-    track.addEventListener('pointercancel', () => { isDragging = false; goTo(current); });
-
-    // Init: jump to first real card without animation
-    goTo(1, false);
-    startAuto();
-
-    window.addEventListener('resize', () => location.reload());
-  })();
-  // ──────────────────────────────────────────────────────────────
+  requestAnimationFrame(()=>{ goTo(1,false); startTimer(); });
+  window.addEventListener('resize', ()=>goTo(current,false));
+})();
 </script>
-
-
-<!-- DESKTOP QR MODAL -->
-<div id="qr-overlay" onclick="if(event.target===this)this.style.display='none'" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); z-index:999; align-items:center; justify-content:center; padding:24px;">
-  <div style="background:#ffffff; border-radius:24px; width:100%; max-width:380px; padding:40px 32px; text-align:center;">
-    <div style="font-size:48px; margin-bottom:16px;">📱</div>
-    <h2 style="font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:28px; color:#1a1a1a; margin-bottom:10px; letter-spacing:-0.01em;">Mobile Device Required</h2>
-    <p style="font-size:15px; color:#555555; line-height:1.6; margin-bottom:28px;">Lurke is an iOS and Android app. Scan the QR code with your phone to open the page on mobile.</p>
-    <div style="background:#f8f8f8; border-radius:16px; padding:20px; margin-bottom:16px; display:inline-block;">
-      <canvas id="qr-canvas" width="160" height="160"></canvas>
-    </div>
-    <p style="font-size:12px; color:#aaaaaa; margin-bottom:24px;">Open your phone camera and point it at the QR code</p>
-    <button onclick="document.getElementById('qr-overlay').style.display='none'" style="background:none; border:none; color:#aaaaaa; font-size:13px; cursor:pointer; font-family:'Plus Jakarta Sans',sans-serif; text-decoration:underline;">Dismiss</button>
-  </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 </body>
 </html>
